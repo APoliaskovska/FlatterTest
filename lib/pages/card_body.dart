@@ -1,49 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sample/constants/constant.dart';
+import 'package:sample/models/card.dart';
 import 'package:sample/utils/dimensions.dart';
+import 'package:sample/widgets/small_text.dart';
 
-class CardBody extends StatefulWidget {
-  const CardBody({Key? key}) : super(key: key);
+class CardBody extends StatelessWidget {
+  final CardModel card;
 
-  @override
-  State<CardBody> createState() => _CardBodyState();
-}
+  CardBody(this.card);
 
-class _CardBodyState extends State<CardBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
-      child:  Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Row(children: [
-              Text("Bank name"),
-              Text("VISA"),
-            ],
+      margin: EdgeInsets.all(15),
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.amberAccent,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [BoxShadow(
+          color: AppColors.secondaryColor,
+          blurRadius: 8.0,
+          offset: Offset(1,3),
+          blurStyle: BlurStyle.outer
+        )]
+      ),
+      child: GestureDetector(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Row(children: [
+                SmallText(text: this.card.bankName, fontType: FontType.medium, size: 16,),
+                SmallText(text: this.card.cardType),
+              ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
-          Row(children: [
-              Text("Chip")
-            ],),
-          SizedBox(height: 10),
-          Row(children: [
-              Text("Card number", textAlign: TextAlign.center,)
+            SizedBox(height: 20),
+            Row(children: [
+                SmallText(text: "Chip")
+              ],
+            ),
+            SizedBox(height: 15),
+            Row(
+              children: [
+                SmallText(text: this.card.cardNumber, fontType: FontType.medium, size: 18,)
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: [
+                SmallText(text: this.card.holderName, fontType: FontType.medium, size: 16,),
+                SmallText(text:"Expires " + this.card.expires),
+              ],
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              )
             ],
           ),
-          Row(children: [
-              Text("Cardholder name"),
-              Text("Expires 12/22"),
-            ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            )
-          ],
-        ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: AppColors.blueSecondaryColor
+        onTap: (){
+          print("did tap card");
+        },
       ),
     );
   }
