@@ -12,6 +12,13 @@ class CardModel {
   CardModel(this.id, this.bankName, this.cardType, this.cardNumber, this.expires, this.holderName, this.cvv);
 }
 
+extension CardImage on CardModel{
+  Image cardImage(){
+    return Image.asset(this.cardType == "VISA"?
+    "assets/images/mastercard.png" : "assets/images/visa.png");
+  }
+}
+
 final List<CardModel> cardsList = [
   CardModel(
       0,

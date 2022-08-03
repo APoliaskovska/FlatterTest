@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sample/constants/constant.dart';
+import 'package:sample/constants/constants.dart';
 import 'package:sample/utils/dimensions.dart';
 
 enum FontType { regular, medium, bold, black }
