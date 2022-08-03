@@ -10,4 +10,7 @@ class AppColors{
 
   static const Color blueSecondaryColor = Color(0x2ea3f2FF);
   static const Color darkBlueColor = Color(0x000066FF);
+
+  //views
+  static const Color shadowColor = Color(0x665E5E5E);
 }

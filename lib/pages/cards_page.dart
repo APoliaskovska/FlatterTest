@@ -6,6 +6,7 @@ import 'package:sample/controllers/cards_controller.dart';
 import 'package:sample/models/card.dart';
 import 'package:sample/pages/components/card_body.dart';
 import 'package:sample/utils/dimensions.dart';
+import 'package:sample/widgets/small_text.dart';
 
 class CardsPage extends StatefulWidget {
   const CardsPage({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class _CardsPageState extends StateMVC {
   //scale factor
   double _scaleFactor = 0.8;
   //view page height
-  double _height = (Dimensions.screenWidth - Dimensions.widthPadding15*2)/1.88;
+  double _height = Dimensions.screenWidth/1.88;
 
   PageController pageController = PageController(viewportFraction: 0.85);
 
@@ -48,13 +49,57 @@ class _CardsPageState extends StateMVC {
           title: Text("Cards")
       ),
       backgroundColor: AppColors.mainBackgroundColor,
-      body: Container(
-        child: PageView.builder(
-          controller: pageController,
-          physics: BouncingScrollPhysics(),
-          itemCount: cardsList.length,
-          itemBuilder: (context, position) {
-            return _buildPageItem(position);},
+      body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: Dimensions.heightPadding10),
+        child: Column(
+          children: [
+            SizedBox(
+              height: _height,
+              child: PageView.builder(
+                controller: pageController,
+                physics: BouncingScrollPhysics(),
+                itemCount: cardsList.length,
+                itemBuilder: (context, position) {
+                  return _buildPageItem(position);},
+              ),
+            ),
+            SizedBox(height: 20,),
+
+            // ***** Add Menu Items *****
+            Column(
+                children: [
+                  for (int i=0; i<_controller!.cardsMenuItems.length; i++)
+                    GestureDetector(
+                      onTap: (){
+                        _controller!.onMenuItemTapped(i, context);
+                      },
+                      child: Container(
+                          margin: EdgeInsets.only(
+                              left: Dimensions.widthPadding10*4,
+                              right: Dimensions.widthPadding10*4,
+                              bottom: Dimensions.widthPadding10),
+                          padding: EdgeInsets.only(left: Dimensions.widthPadding15*2),
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColors.shadowColor,
+                                  blurRadius: 6.0,
+                                  offset: Offset(0,0),
+                                  blurStyle: BlurStyle.outer
+                              )
+                            ],
+                            borderRadius: BorderRadius.all(Radius.circular(Dimensions.radius20/2))
+                          ),
+                          alignment: Alignment.centerLeft,
+                          height: Dimensions.height80,
+                          child: SmallText(
+                              text: _controller!.cardsMenuItems[i].title(),
+                              size: 16)
+                      ),
+                    )
+                ]
+            )
+          ],
         ),
       ),
     );

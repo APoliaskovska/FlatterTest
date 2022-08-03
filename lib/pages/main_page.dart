@@ -3,8 +3,6 @@ import 'package:sample/constants/constants.dart';
 import 'package:sample/controllers/main_controller.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../utils/dimensions.dart';
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -24,7 +22,7 @@ class _MainPageState extends StateMVC {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      body: Container(
         child: _controller!.currentPage(),
       ),
       bottomNavigationBar: BottomNavigationBar(

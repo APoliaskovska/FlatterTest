@@ -1,4 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:sample/pages/card_details_page.dart';
 
 enum CardsMenuItems { cardLimits, changePIN, freezeCard, closeCard }
 
@@ -35,7 +37,17 @@ class CardsController extends ControllerMVC{
     print("did tap card id " + id.toString());
   }
 
-  void onMenuItemTapped(CardsMenuItems item) {
-    print(item.title());
+  void onMenuItemTapped(int index, BuildContext context) {
+    switch (cardsMenuItems[index]){
+      case CardsMenuItems.cardLimits:
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context) => CardDetailsPage()
+            )
+        );
+        break;
+        default:
+          break;
+    }
   }
 }
