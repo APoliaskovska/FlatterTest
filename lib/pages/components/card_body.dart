@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/controllers/cards_controller.dart';
 import 'package:sample/models/card.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
@@ -64,7 +62,7 @@ class CardBody extends StatelessWidget {
             Row(
               children: [
                 SmallText(text: this.card.holderName, fontType: FontType.medium, size: 16,),
-                SmallText(text:"Expires " + this.card.expires),
+                SmallText(text:"Expires " + this.card.expires!),
               ],
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
               )

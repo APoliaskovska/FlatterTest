@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/utils/dimensions.dart';
 
 enum FontType { regular, medium, bold, black }
 
@@ -25,25 +24,28 @@ class SmallText extends StatelessWidget {
   final double? size;
   final double? height;
   final FontType? fontType;
+  final TextAlign? textAlign;
 
   const SmallText({ Key? key,
     this.color = AppColors.mainBlackColor,
     required this.text,
     this.size = 0,
     this.height = 1.2,
-    this.fontType = FontType.regular
+    this.fontType = FontType.regular,
+    this.textAlign = TextAlign.left
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
    return Text(
      text!,
+     textAlign: textAlign,
      style: TextStyle(fontFamily: 'Roboto',
        color: color,
        fontSize: size == 0 ? 14 : size,
        height: height,
        overflow: TextOverflow.ellipsis,
-       fontWeight: fontType!.weight()
+       fontWeight: fontType!.weight(),
       ),
     );
   }

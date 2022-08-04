@@ -1,31 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:get/get.dart';
 import 'package:sample/controllers/card_details_controller.dart';
 import 'package:sample/widgets/small_text.dart';
 
 import '../constants/constants.dart';
+import '../widgets/main_app_bar.dart';
 
 class CardDetailsPage extends StatefulWidget {
   const CardDetailsPage({Key? key}) : super(key: key);
 
   @override
-  _CardDetailsPageState createState() => _CardDetailsPageState();
+  State<CardDetailsPage> createState() => _CardDetailsPageState();
 }
 
-class _CardDetailsPageState extends StateMVC {
-  CardDetailsController? _controller;
-
-  _CardDetailsPageState() : super(CardDetailsController()) {
-    _controller = CardDetailsController.controller;
-  }
-
+class _CardDetailsPageState extends  State<CardDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: AppColors.primaryColor,
-        title: Text("Card Details"),
+      appBar:  const MainAppBar(
+          titleText: "Card Limits"
       ),
         body: Container(
           alignment: Alignment.center,

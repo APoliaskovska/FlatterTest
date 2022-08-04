@@ -1,29 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
 import 'package:sample/controllers/main_controller.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+
+import 'cards_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
 
 
-class _MainPageState extends StateMVC {
-  MainController? _controller;
+class _MainPageState extends State<MainPage> {
+  var currentIndex = 0;
 
-  _MainPageState() : super(MainController()) {
-    _controller = MainController.controller;
+  void _onItemTapped(int index) {
+    currentIndex = index;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: _controller!.currentPage(),
+        child: _currentPage(currentIndex)
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -44,16 +46,33 @@ class _MainPageState extends StateMVC {
             label: 'Page 4',
           ),
         ],
-        currentIndex: _controller!.currentIndex,
+        currentIndex: currentIndex,
         selectedItemColor: AppColors.primaryColor,
         unselectedItemColor: AppColors.lightGrayColor,
         backgroundColor: AppColors.secondaryColor,
         onTap: (index){
           setState(() {
-            _controller!.currentIndex = index;
+            currentIndex = index;
           });
         },
       ),
     );
   }
+
+  Widget _currentPage(int currentIndex) {
+    return pages[currentIndex];
+  }
+
+  List pages = [
+    const CardsPage(),
+    const Center(
+      child: Text("Page 2"),
+    ),
+    const Center(
+      child: Text("Page 3"),
+    ),
+    const Center(
+      child: Text("Page 4"),
+    ),
+  ];
 }

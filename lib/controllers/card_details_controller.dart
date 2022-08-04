@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:get/get.dart';
 
-class CardDetailsController extends ControllerMVC {
+class CardDetailsController extends GetxController {
 
   static CardDetailsController? _this;
   static CardDetailsController? get controller => _this;
