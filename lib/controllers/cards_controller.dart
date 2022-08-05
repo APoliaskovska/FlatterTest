@@ -27,14 +27,14 @@ class CardsController extends GetxController  {
   final CardsRepo cardsRepo;
   CardsController({required this.cardsRepo});
 
-  List<CardModel> cardsList = [];
+  List<dynamic> cardsList = [];
   bool isLoaded = false;
-  bool isLoading = false;
+  bool isLoading = true;
 
   var cardsMenuItems = CardsMenuItems.values;
 
   void onCardTapped(int id) {
-    print("did tap card id " + id.toString());
+    print("did tap card id $id");
   }
 
   void onMenuItemTapped(int index, BuildContext context) {
@@ -42,7 +42,7 @@ class CardsController extends GetxController  {
       case CardsMenuItems.cardLimits:
         Navigator.push(context,
             MaterialPageRoute(
-                builder: (context) => CardDetailsPage()
+                builder: (context) => const CardDetailsPage()
             )
         );
         break;
@@ -51,27 +51,25 @@ class CardsController extends GetxController  {
     }
   }
 
-  Future<void> getCardModelList() async {
-    isLoading = true;
-    await cardsRepo.getCardList().then((value) {
-      if (value.statusCode == 200) {
-        isLoading = false;
-        Map<String, dynamic> resData = json.decode(value.body);
-        if (resData["cards_list"]!=null) {
-          cardsList.clear();
-          CardModelList.fromJson(resData).cardList!.forEach((element) {
-            cardsList.add(element);
-          });
+  Future<dynamic> getCardModelList() async {
+   isLoading = true;
+   isLoaded = false;
+   final result = await cardsRepo.getCardList();
 
-          isLoaded = true;
-          update();
-        }
-      } else {
-        isLoading = false;
-        isLoaded = false;
-        update();
-      }
-      return value;
-    });
+   if (result.success) {
+     final dynamic resData = result.response;
+     if (resData["cards_list"]!=null) {
+       cardsList.clear();
+       for (var element in CardModelList.fromJson(resData).cardList!) {
+         cardsList.add(element);
+       }
+     }
+     isLoaded = true;
+   } else {
+     print("getCardModelList() failed with error: " + result.response);
+     isLoaded = false;
+   }
+   isLoading = false;
+   update();
   }
 }

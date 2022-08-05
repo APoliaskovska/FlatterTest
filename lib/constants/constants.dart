@@ -14,3 +14,10 @@ class AppColors{
   //views
   static const Color shadowColor = Color(0x665E5E5E);
 }
+
+class AppResponseStrings {
+  static const String SOMETHING_WRONG = "Something went wrong...";
+  static const String NO_INTERNET = "Fail internet connection";
+  static const String UNAUTHORIZED = "Authorization failed";
+  static const String BAD_RESPONSE = "Bad response";
+}

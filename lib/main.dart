@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home: SplashScreen()//title: 'Flutter Demo Home Page'),
+      home: const SplashScreen()//title: 'Flutter Demo Home Page'),
     );
   }
 }

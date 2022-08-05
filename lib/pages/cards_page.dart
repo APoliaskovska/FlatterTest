@@ -43,29 +43,31 @@ class _CardsPageState extends State<CardsPage> {
       backgroundColor: AppColors.mainBackgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(top: Dimensions.heightPadding10),
-        child: GetBuilder<CardsController>(builder: (controller) {
-        return Column(
+        child: Column(
           children: [
             SizedBox(
               height: _height,
-              child: controller.isLoading ? Container(
-                alignment: Alignment.center,
-                child: CircularProgressIndicator(color: AppColors.primaryColor,)
-              )
-              : controller.isLoaded ? PageView.builder(
-                controller: pageController,
-                physics: BouncingScrollPhysics(),
-                itemCount: controller.cardsList.length,
-                itemBuilder: (context, position) {
-                  return _buildPageItem(position);},
-              ) : _errorWidget(),
+              child: GetBuilder<CardsController>(builder: (controller) {
+                return controller.isLoading ?
+                const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,))
+                    : controller.isLoaded ? PageView.builder(
+                  controller: pageController,
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: controller.cardsList.length,
+                  itemBuilder: (context, position) {
+                    return _buildPageItem(position);},
+                ) : _errorWidget();
+              })
             ),
+
             const SizedBox(height: 20,),
 
             // ***** Add Menu Items *****
-            Column(
-                children: [
-                  for (int i=0; i<controller.cardsMenuItems.length; i++)
+
+           GetBuilder<CardsController>(builder: (controller) {
+             return Column(
+                 children: [
+                   for (int i=0; i<controller.cardsMenuItems.length; i++)
                     GestureDetector(
                       onTap: (){
                         controller.onMenuItemTapped(i, context);
@@ -77,11 +79,11 @@ class _CardsPageState extends State<CardsPage> {
                               bottom: Dimensions.widthPadding10),
                           padding: EdgeInsets.only(left: Dimensions.widthPadding15*2),
                           decoration: BoxDecoration(
-                              boxShadow: [
+                              boxShadow: const [
                                 BoxShadow(
                                     color: AppColors.shadowColor,
                                     blurRadius: 6.0,
-                                    offset: const Offset(0,0),
+                                    offset: Offset(0,0),
                                     blurStyle: BlurStyle.outer
                                 )
                               ],
@@ -94,11 +96,13 @@ class _CardsPageState extends State<CardsPage> {
                               size: 16)
                       ),
                     )
-                ]
+                    ]
+                );
+              }
             )
-           ],
-          );
-        })
+          ],
+        )
+        //GetBuilder<CardsController>(builder: (controller) {
       ),
     );
   }

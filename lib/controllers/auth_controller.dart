@@ -14,10 +14,8 @@ class AuthController extends GetxController {
   Future<bool> checkLogin() async {
     return await authRepo.getToken().then((token) {
       if (token != null && token.isNotEmpty) {
-        print("TOKEN = " + token);
         return true;
       } else {
-        print("TOKEN = " + "empty");
         return false;
       }
     });

@@ -1,21 +1,12 @@
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import '../../constants/app_urls.dart';
+import '../request_builder.dart';
 
-class CardsRepo extends GetxService {
+class CardsRepo extends ReguestBuilder {
   CardsRepo();
 
-  var token = "";
-
-  Future<http.Response> getCardList() async {
-    http.Response res = await http.get(
-      Uri.parse(AppUrl.GET_CARDS),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    );
-    return res;
+  Future<JsonResponse> getCardList() async {
+    return await preformRequest(type: RequestType.get, url: AppUrl.GET_CARDS);
   }
 }
+
+
