@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:proto_sample/generated/sample.pbgrpc.dart';
 import 'package:sample/constants/constants.dart';
 import 'package:sample/models/card.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 
 class CardBody extends StatelessWidget {
-  final CardModel card;
+  final PaymentCard card;
 
   CardBody(this.card);
 
@@ -31,15 +31,14 @@ class CardBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Row(children: [
-                SmallText(text: this.card.bankName, fontType: FontType.medium, size: 16,),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [
+                SmallText(text: card.bankName, fontType: FontType.medium, size: 16,),
                 SizedBox(
                   width: Dimensions.iconSize16*4,
                   height: Dimensions.iconSize16*2,
-                  child: this.card.cardImage(),
+                  child: card.cardImage(),
                 )
               ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
             SizedBox(height: Dimensions.height10),
             Row(children: [
@@ -55,16 +54,16 @@ class CardBody extends StatelessWidget {
             SizedBox(height: Dimensions.height15),
             Row(
               children: [
-                SmallText(text: this.card.cardNumber, fontType: FontType.medium, size: 18,)
+                SmallText(text: card.cardNumber, fontType: FontType.medium, size: 18,)
               ],
             ),
             SizedBox(height: Dimensions.height20),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SmallText(text: this.card.holderName, fontType: FontType.medium, size: 16,),
-                SmallText(text:"Expires " + this.card.expires!),
+                SmallText(text: card.holderName, fontType: FontType.medium, size: 16,),
+                SmallText(text:"Expires ${card.expires}"),
               ],
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
               )
             ],
           ),

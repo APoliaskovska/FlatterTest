@@ -1,9 +1,8 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/models/card.dart';
+import 'package:proto_sample/generated/sample.pbgrpc.dart';
+import 'package:sample/grpc/grpc_service.dart';
 import 'package:sample/pages/card_details_page.dart';
-
 import '../service/repository/cards_repo.dart';
 
 enum CardsMenuItems { cardLimits, changePIN, freezeCard, closeCard }
@@ -25,9 +24,10 @@ extension CardsMenuItemsTitle on CardsMenuItems {
 
 class CardsController extends GetxController  {
   final CardsRepo cardsRepo;
+
   CardsController({required this.cardsRepo});
 
-  List<dynamic> cardsList = [];
+  List<PaymentCard> cardsList = [];
   bool isLoaded = false;
   bool isLoading = true;
 
@@ -51,25 +51,32 @@ class CardsController extends GetxController  {
     }
   }
 
-  Future<dynamic> getCardModelList() async {
+  void getCardModelList() async {
    isLoading = true;
    isLoaded = false;
-   final result = await cardsRepo.getCardList();
+   print("getCardModelList() started");
 
-   if (result.success) {
-     final dynamic resData = result.response;
-     if (resData["cards_list"]!=null) {
+   try {
+     final result = await cardsRepo.getCards();
+     if (result != null && result.cards.length > 0) {
+       final resData = result.cards;
        cardsList.clear();
-       for (var element in CardModelList.fromJson(resData).cardList!) {
-         cardsList.add(element);
+       for (int i=0; i < resData.length; i++) {
+         cardsList.add(resData[i]);
        }
+       isLoaded = true;
+       print("getCardModelList() loaded: " + resData.toString());
+     } else {
+       isLoaded = false;
+       print("getCardModelList() loaded: " +  "false");
      }
-     isLoaded = true;
-   } else {
-     print("getCardModelList() failed with error: " + result.response);
-     isLoaded = false;
-   }
-   isLoading = false;
-   update();
+     isLoading = false;
+     update();
+    } catch  (error) {
+     print("getCardModelList() failed with error: " + error.toString());
+     isLoading = false;
+     update();
+    }
   }
+
 }

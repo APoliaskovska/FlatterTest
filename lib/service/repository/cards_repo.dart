@@ -1,11 +1,13 @@
-import '../../constants/app_urls.dart';
-import '../request_builder.dart';
+import 'package:get/get.dart';
 
-class CardsRepo extends ReguestBuilder {
-  CardsRepo();
+import '../../grpc/grpc_service.dart';
+import 'package:proto_sample/generated/sample.pb.dart';
 
-  Future<JsonResponse> getCardList() async {
-    return await preformRequest(type: RequestType.get, url: AppUrl.GET_CARDS);
+class CardsRepo extends GetxService {
+  final _grpcService = Get.find<MainService>();
+
+  Future<dynamic> getCards() async{
+    return await _grpcService.getUserCards(User(id: 2, name: "Test"));
   }
 }
 

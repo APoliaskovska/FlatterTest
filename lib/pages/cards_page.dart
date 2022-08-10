@@ -26,11 +26,16 @@ class _CardsPageState extends State<CardsPage> {
   @override
   void initState(){
     super.initState();
+    _loadData();
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;
       });
     });
+  }
+
+  void _loadData(){
+    Get.find<CardsController>().getCardModelList();
   }
 
   @override
@@ -150,12 +155,12 @@ class _CardsPageState extends State<CardsPage> {
               onTap: (){
                 Get.snackbar(
                   "Test",
-                  "Did tap on card " + controller.cardsList[index].holderName!,
+                  "Did tap on card ${controller.cardsList[index].holderName}",
                   backgroundColor: AppColors.primaryColor,
                   colorText: Colors.white,
                   duration: Duration(seconds: 3),
                 );
-                controller.onCardTapped(controller.cardsList[index].id!);
+                controller.onCardTapped(controller.cardsList[index].id);
               },
             ),
           );
