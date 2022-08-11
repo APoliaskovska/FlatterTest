@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:sample/pages/auth_page.dart';
 import 'package:sample/pages/main_page.dart';
 import '../utils/dimensions.dart';
 import 'package:page_transition/page_transition.dart';
@@ -16,6 +17,6 @@ class SplashScreen extends StatelessWidget {
         splashIconSize: Dimensions.screenWidth * 0.8,
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.fade,
-        nextScreen: const MainPage());
+        nextScreen: const AuthPage());
   }
 }

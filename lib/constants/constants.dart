@@ -21,3 +21,8 @@ class AppResponseStrings {
   static const String UNAUTHORIZED = "Authorization failed";
   static const String BAD_RESPONSE = "Bad response";
 }
+
+class AppErrorsString {
+  static const String INVALID_LOGIN_OR_PASSWORD = "Invalid login or password";
+  static const String FIELD_IS_EMPTY = "Field is epmty";
+}

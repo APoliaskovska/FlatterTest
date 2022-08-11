@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/controllers/cards_controller.dart';
 import 'package:sample/pages/splash_screen.dart';
 import 'helper/dependencies.dart' as dep;
 

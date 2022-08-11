@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sample/controllers/card_details_controller.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../constants/constants.dart';
 import '../widgets/main_app_bar.dart';
 
 class CardDetailsPage extends StatefulWidget {

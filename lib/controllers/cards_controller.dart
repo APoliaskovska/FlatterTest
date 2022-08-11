@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
-import 'package:sample/grpc/grpc_service.dart';
 import 'package:sample/pages/card_details_page.dart';
 import '../service/repository/cards_repo.dart';
 
@@ -51,7 +50,16 @@ class CardsController extends GetxController  {
     }
   }
 
-  void getCardModelList() async {
+  void initialLoad(){
+    _getCardModelList();
+  }
+
+  void reloadData() {
+    update();
+    _getCardModelList();
+  }
+
+  void _getCardModelList() async {
    isLoading = true;
    isLoaded = false;
    print("getCardModelList() started");
@@ -72,7 +80,7 @@ class CardsController extends GetxController  {
      }
      isLoading = false;
      update();
-    } catch  (error) {
+    } catch (error) {
      print("getCardModelList() failed with error: " + error.toString());
      isLoading = false;
      update();

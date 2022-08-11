@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/controllers/main_controller.dart';
+import 'package:sample/pages/profile_page.dart';
 
 import 'cards_page.dart';
 
@@ -11,8 +10,6 @@ class MainPage extends StatefulWidget {
   @override
   State<MainPage> createState() => _MainPageState();
 }
-
-
 
 class _MainPageState extends State<MainPage> {
   var currentIndex = 0;
@@ -43,7 +40,7 @@ class _MainPageState extends State<MainPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Page 4',
+            label: 'Profile',
           ),
         ],
         currentIndex: currentIndex,
@@ -71,8 +68,6 @@ class _MainPageState extends State<MainPage> {
     const Center(
       child: Text("Page 3"),
     ),
-    const Center(
-      child: Text("Page 4"),
-    ),
+    const ProfilePage(),
   ];
 }

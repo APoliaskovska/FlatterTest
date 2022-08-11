@@ -16,12 +16,14 @@ class MainService extends GetxService {
   }
 
   Future<dynamic> getUserCards(User user) async {
-    print("call getUserCards()");
     return await stub.getCards(user);
   }
 
   Future<dynamic> getUserDetails() async {
-    print("call getUserCards()");
     return await stub.getUserDetails(User(id: 1));
+  }
+
+  Future<dynamic> getUserAvatar() async {
+    return await stub.getUserAvatar(User(id: 1));
   }
 }

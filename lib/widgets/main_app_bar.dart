@@ -10,11 +10,12 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Size preferredSize; // default is 56.0
   final String? titleText;
   final bool? showAccountIcon;
+  final Widget? rightItem;
 
   const MainAppBar({ Key? key,
     this.preferredSize = const Size.fromHeight(kToolbarHeight),
     this.titleText = "",
-    this.showAccountIcon = false
+    this.showAccountIcon = false, this.rightItem,
   }) : super(key: key);
 
   @override
@@ -23,8 +24,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (showAccountIcon! == true){
       actionWidgets.add(IconButton(
         icon: const Icon(Icons.person),
-        onPressed: (
-            ) {
+        onPressed: () {
           AuthController authCont = Get.find<AuthController>();
           authCont.checkLogin().then((isLoggedIn) {
             if (isLoggedIn == false) {
@@ -41,6 +41,8 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           });
         },
       ));
+    } else if (rightItem != null){
+      actionWidgets.add(rightItem!);
     }
     return AppBar(
         title: SmallText(
@@ -51,6 +53,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       foregroundColor: AppColors.primaryColor,
       actions: actionWidgets,
+
     );
   }
 }

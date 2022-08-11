@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
 import 'package:sample/controllers/cards_controller.dart';
 import 'package:sample/pages/components/card_body.dart';
+import 'package:sample/pages/components/error_container.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/main_app_bar.dart';
 import 'package:sample/widgets/small_text.dart';
@@ -26,7 +27,7 @@ class _CardsPageState extends State<CardsPage> {
   @override
   void initState(){
     super.initState();
-    _loadData();
+    Get.find<CardsController>().initialLoad();
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;
@@ -34,9 +35,6 @@ class _CardsPageState extends State<CardsPage> {
     });
   }
 
-  void _loadData(){
-    Get.find<CardsController>().getCardModelList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +59,10 @@ class _CardsPageState extends State<CardsPage> {
                   itemCount: controller.cardsList.length,
                   itemBuilder: (context, position) {
                     return _buildPageItem(position);},
-                ) : _errorWidget();
+                ) : ErrorContainer("Error loading cards...\nTry again later", () {
+                  CardsController controller = Get.find<CardsController>();
+                  controller.reloadData();
+                });
               })
             ),
 
@@ -165,29 +166,6 @@ class _CardsPageState extends State<CardsPage> {
             ),
           );
         }
-      ),
-    );
-  }
-
-  Widget _errorWidget (){
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SmallText(
-              text: "Error loading cards...\nTry again later",
-              color: Colors.red,
-              textAlign: TextAlign.center),
-          IconButton(icon: const Icon(Icons.update),
-            color: AppColors.primaryColor,
-            onPressed: () {
-              CardsController controller = Get.find<CardsController>();
-              controller.getCardModelList();
-              controller.update();
-            },
-          )
-        ],
       ),
     );
   }
