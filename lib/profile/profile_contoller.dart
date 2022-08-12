@@ -1,14 +1,15 @@
 import 'dart:typed_data';
-
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
+import 'package:sample/constants/themes.dart';
+import 'package:sample/main/widgets/main_tabbar.dart';
 import 'package:sample/service/repository/client_repo.dart';
-import 'helper/dependencies.dart' as dep;
-import '../pages/auth_page.dart';
+import '../routes/routes.dart';
 
-class ProfileController extends GetxController {
+class ProfileController extends MainTabController {
   static ProfileController get() => Get.find();
+  bool canPop() => false;
 
   final ClientRepo clientRepo;
 
@@ -18,9 +19,10 @@ class ProfileController extends GetxController {
 
   ProfileController({required this.clientRepo});
 
-  void initialLoad(){
-    _getUserDetails();
-    _getUserPhoto();
+  @override
+  void onInit() {
+    super.onInit();
+    reloadData();
   }
 
   void reloadData() {
@@ -50,7 +52,7 @@ class ProfileController extends GetxController {
     update();
     await Future.delayed(const Duration(milliseconds: 1000), () async {
       isLoading = false;
-      Get.offAll(AuthPage());
+      Get.offAndToNamed(Routes.LOGIN);
     });
   }
 
@@ -69,5 +71,12 @@ class ProfileController extends GetxController {
       userDetails = null;
       isLoading = false;
     }
+  }
+
+  // overrides
+
+  @override
+  void onTabOpen() {
+    reloadData();
   }
 }

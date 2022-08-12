@@ -1,33 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/controllers/profile_contoller.dart';
-import 'package:sample/pages/components/error_container.dart';
+import 'package:sample/profile/profile_contoller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/big_text.dart';
+import 'package:sample/widgets/main_app_bar.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../widgets/main_app_bar.dart';
+import '../widgets/error_container.dart';
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends  State<ProfilePage> {
+class ProfilePage extends GetView<ProfileController> {
   final _imageSize = Dimensions.height200;
 
   @override
-  void initState() {
-    super.initState();
-    Get.find<ProfileController>().initialLoad();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final logoutItem = _logoutWidget();
+    final logoutItem = LogoutWidget();
     return Scaffold(
         appBar: MainAppBar(
             titleText: "Profile",
@@ -57,7 +44,7 @@ class _ProfilePageState extends  State<ProfilePage> {
                   BigText(text: "${controller.userDetails!.name[0]}${controller
                       .userDetails!.surname[0]}".toUpperCase())
                       : controller
-                      .avatar! as Image, //Image.asset("images/profile.jpg")
+                      .avatar!, //Image.asset("images/profile.jpg")
                 ),
                 SizedBox(height: Dimensions.height15 * 2,),
                 Row(
@@ -90,8 +77,13 @@ class _ProfilePageState extends  State<ProfilePage> {
         })
     );
   }
+}
 
-  Widget _logoutWidget() {
+class LogoutWidget extends StatelessWidget {
+  const LogoutWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return GetBuilder<ProfileController>(builder: (controller) {
       return IconButton(
         icon: const Icon(Icons.logout),

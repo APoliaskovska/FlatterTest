@@ -24,5 +24,5 @@ class AppResponseStrings {
 
 class AppErrorsString {
   static const String INVALID_LOGIN_OR_PASSWORD = "Invalid login or password";
-  static const String FIELD_IS_EMPTY = "Field is epmty";
+  static const String FIELD_IS_EMPTY = "Field is empty";
 }

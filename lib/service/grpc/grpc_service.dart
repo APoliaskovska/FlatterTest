@@ -15,6 +15,14 @@ class MainService extends GetxService {
     stub = SampleClient(buildGrpcChannel(host: host, port: port, secure: false));
   }
 
+  //AUTH
+
+  Future<dynamic> loginWith(String login, String password) async {
+    return await stub.loginWith(AuthRequest(login: login, password: password));
+  }
+
+  //CARDS
+
   Future<dynamic> getUserCards(User user) async {
     return await stub.getCards(user);
   }
@@ -26,4 +34,5 @@ class MainService extends GetxService {
   Future<dynamic> getUserAvatar() async {
     return await stub.getUserAvatar(User(id: 1));
   }
+
 }

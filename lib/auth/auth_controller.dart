@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:sample/pages/main_page.dart';
 import 'package:sample/service/repository/auth_repo.dart';
+import 'package:sample/utils/get_utils.dart';
+
+import '../routes/routes.dart';
 
 class AuthController extends GetxController {
   static AuthController get() => Get.find();
@@ -15,37 +17,55 @@ class AuthController extends GetxController {
 
   static String? _login;
   static String? _password;
+  final _isValidLogin = false.obs;
+  final _isValidPassword = false.obs;
+  final _inProgress = false.obs;
 
-  bool isValidLogin = false;
-  bool isValidPassword = false;
-  bool inProgress = false;
+  bool get isValidLogin => _isValidLogin();
+  bool get isValidPassword => _isValidPassword();
+  bool get inProgress => _inProgress();
 
-  void initialLoad(){
+  @override
+  void onInit() {
+    super.onInit();
+    _initialLoad();
+  }
+
+  void _initialLoad(){
 
   }
 
   void setLogin(String? login){
     _login = login;
-    isValidLogin = login != null && login.length > 0;
+    _isValidLogin(_login != null && _login!.length > 0);
     update();
   }
 
   void setPassword(String? password) {
     _password = password;
-    isValidPassword = password != null && password.length > 0;
+    _isValidPassword(_password != null && _password!.length > 0);
     update();
   }
 
   Future<dynamic> login() async {
-    if (inProgress == true) return;
+    if (_login == null || _password == null) return;
 
-    inProgress = true;
-    update();
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      inProgress = false;
-      update();
-      Get.off(MainPage());
-    });
+    _inProgress(true);
+    AppUtils.showPreloader();
+
+    try {
+      final user = await authRepo.auth(_login!, _password!);
+      AppUtils.hidePreloader();
+      _inProgress(false);
+      if (user.login.isEmpty) {
+        AppUtils.showError("User not found...");
+      } else {
+        Get.offAllNamed(Routes.MAIN);
+      }
+    } catch (error) {
+      _inProgress(false);
+      AppUtils.showError(error.toString());
+    }
   }
 
   Future<bool> checkLogin() async {

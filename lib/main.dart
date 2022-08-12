@@ -1,13 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/pages/splash_screen.dart';
+import 'package:sample/routes/routes.dart';
 import 'helper/dependencies.dart' as dep;
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
-  await dep.AppDependencies.init();
   runApp(const MyApp());
 }
 
@@ -32,7 +31,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
       ),
-      home: const SplashScreen()//title: 'Flutter Demo Home Page'),
+      initialRoute: AppPages.initial,
+      getPages: AppPages.routes,
     );
   }
 }

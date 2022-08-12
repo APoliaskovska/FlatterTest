@@ -1,12 +1,20 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:proto_sample/generated/sample.pb.dart';
+
+import '../grpc/grpc_service.dart';
 
 class AuthRepo extends GetxService {
-  AuthRepo();
+  final _grpcService = Get.find<MainService>();
 
   final _storage = const FlutterSecureStorage();
   List<_SecItem> _items = [];
 
+  //auth requests
+
+  Future<User> auth(String login, String password) async {
+    return await _grpcService.loginWith(login, password);
+  }
   //public
 
   Future<String?> getToken() async {

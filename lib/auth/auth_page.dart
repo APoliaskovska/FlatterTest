@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/controllers/auth_controller.dart';
+import 'package:sample/auth/auth_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 
 import '../widgets/main_app_bar.dart';
 
-class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
-
-  @override
-  State<AuthPage> createState() => _AuthPageState();
-}
-
-class _AuthPageState extends State<AuthPage> {
-
-  @override
-  void initState(){
-    super.initState();
-    Get.find<AuthController>().initialLoad();
-  }
+class AuthPage extends GetView<AuthController> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +16,8 @@ class _AuthPageState extends State<AuthPage> {
           titleText: "Auth",
           showAccountIcon: false
       ),
-      body: GetBuilder<AuthController>(builder: (controller) {
-        var _isValid = controller.isValidPassword && controller.isValidLogin;
+      body: Obx(() {
+        var _isValid = controller.isValidLogin && controller.isValidPassword;
         return Center(
           child: Container(
             alignment: Alignment.center,
@@ -80,8 +67,8 @@ class _AuthPageState extends State<AuthPage> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _isValid ? AppColors.primaryColor : Colors.grey, // This is what you need!
                     ),
-                    onPressed: (){
-                      if (_isValid) Get.find<AuthController>().login();
+                    onPressed: () async {
+                      if (_isValid) await controller.login();
                     },
                     child: Container(
                         padding: EdgeInsets.all(Dimensions.widthPadding10),
@@ -89,8 +76,7 @@ class _AuthPageState extends State<AuthPage> {
                       )
                   ),
                   SizedBox(height: Dimensions.height20),
-                  controller.inProgress ? const Center(child: CircularProgressIndicator(color: AppColors.primaryColor,))
-                      : Container()
+                  Container()
                 ],
               ),
             ),

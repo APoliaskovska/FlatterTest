@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
-import 'package:sample/pages/card_details_page.dart';
+import 'package:sample/main/widgets/main_tabbar.dart';
+import 'package:sample/routes/routes.dart';
 import '../service/repository/cards_repo.dart';
 
 enum CardsMenuItems { cardLimits, changePIN, freezeCard, closeCard }
@@ -21,68 +22,96 @@ extension CardsMenuItemsTitle on CardsMenuItems {
   }
 }
 
-class CardsController extends GetxController  {
+class CardsController extends MainTabController  {
+  static CardsController get() => Get.find();
+
+  PageController pageController = PageController(viewportFraction: 0.85);
+
+  bool canPop() => false;
+
   final CardsRepo cardsRepo;
+
+  final _isLoaded = false.obs;
+  final _isLoading = false.obs;
 
   CardsController({required this.cardsRepo});
 
-  List<PaymentCard> cardsList = [];
-  bool isLoaded = false;
-  bool isLoading = true;
+  final List<PaymentCard> _cardsList = [];
+  bool get isLoaded => _isLoaded();
+  bool get isLoading => _isLoading();
 
-  var cardsMenuItems = CardsMenuItems.values;
+  List<CardsMenuItems> get cardsMenuItems => CardsMenuItems.values;
+  List<PaymentCard> get cardsList => _cardsList;
+
+  var currPageValue = 0.0;
 
   void onCardTapped(int id) {
     print("did tap card id $id");
   }
 
+
+
+  @override
+  void onTabOpen() {
+    super.onTabOpen();
+    reloadData();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    reloadData();
+    pageController.addListener(() {
+      currPageValue = pageController.page!;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
   void onMenuItemTapped(int index, BuildContext context) {
     switch (cardsMenuItems[index]){
       case CardsMenuItems.cardLimits:
-        Navigator.push(context,
-            MaterialPageRoute(
-                builder: (context) => const CardDetailsPage()
-            )
-        );
+        Get.toNamed(Routes.CARDS_DETAILS);
         break;
         default:
           break;
     }
   }
 
-  void initialLoad(){
-    _getCardModelList();
-  }
-
-  void reloadData() {
+  Future<dynamic> reloadData() async {
     update();
-    _getCardModelList();
+    await _getCardModelList();
   }
 
-  void _getCardModelList() async {
-   isLoading = true;
-   isLoaded = false;
+  Future<dynamic> _getCardModelList() async {
+    _isLoaded(false);
+    _isLoading(true);
+
    print("getCardModelList() started");
 
    try {
      final result = await cardsRepo.getCards();
      if (result != null && result.cards.length > 0) {
        final resData = result.cards;
-       cardsList.clear();
+       _cardsList.clear();
        for (int i=0; i < resData.length; i++) {
-         cardsList.add(resData[i]);
+         _cardsList.add(resData[i]);
        }
-       isLoaded = true;
+       _isLoaded(true);
        print("getCardModelList() loaded: " + resData.toString());
      } else {
-       isLoaded = false;
+       _isLoaded(false);
        print("getCardModelList() loaded: " +  "false");
      }
-     isLoading = false;
+     _isLoading(false);
      update();
-    } catch (error) {
-     print("getCardModelList() failed with error: " + error.toString());
-     isLoading = false;
+   } catch (error) {
+    _isLoading(false);
+    print("getCardModelList() failed with error: " + error.toString());
      update();
     }
   }

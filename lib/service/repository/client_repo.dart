@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import '../../grpc/grpc_service.dart';
-import 'package:proto_sample/generated/sample.pb.dart';
+import '../grpc/grpc_service.dart';
 
 class ClientRepo extends GetxService {
   final _grpcService = Get.find<MainService>();
