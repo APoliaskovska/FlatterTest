@@ -54,9 +54,9 @@ class MainController extends GetxController {
   Future<void> onTapNav(int idx) async {
     /// only for VENTA we make a special case...
     final model = menuData[idx];
-    if (model.route == Routes.PROFILE) {
-      Get.toNamed(Routes.PROFILE);
-    } else {
+    // if (model.route == Routes.PROFILE) {
+    //   Get.toNamed(Routes.PROFILE);
+    // } else {
       if (model != _currentModel) {
         _currentModel = model;
 
@@ -68,7 +68,7 @@ class MainController extends GetxController {
         }
       }
       selectedNav(idx);
-    }
+    //}
   }
 
   Widget getPage() {

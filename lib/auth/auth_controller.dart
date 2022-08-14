@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:get/get.dart';
 import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/utils/get_utils.dart';
+import 'package:grpc/grpc.dart';
 
 import '../routes/routes.dart';
 
@@ -62,9 +63,15 @@ class AuthController extends GetxController {
       } else {
         Get.offAllNamed(Routes.MAIN);
       }
-    } catch (error) {
+    } on GrpcError catch(e) {
       _inProgress(false);
-      AppUtils.showError(error.toString());
+      final eMessage = e.message;
+      if (eMessage != null) {
+        AppUtils.showError(eMessage);
+      }
+    } catch (e){
+      _inProgress(false);
+      AppUtils.showError(e.toString());
     }
   }
 

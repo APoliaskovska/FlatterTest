@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sample/card_details/card_details_page.dart';
 import 'package:sample/cards/cards_controller.dart';
 import 'package:sample/cards/cards_page.dart';
 import 'package:sample/profile/profile_contoller.dart';
@@ -55,7 +56,6 @@ class NavData {
         ),
       ),
     ),
-
     NavItemData(
       name: 'profile',
       route: Routes.PROFILE,

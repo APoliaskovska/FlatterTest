@@ -2,22 +2,35 @@ import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
-import 'package:sample/constants/themes.dart';
 import 'package:sample/main/widgets/main_tabbar.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import '../routes/routes.dart';
 
 class ProfileController extends MainTabController {
   static ProfileController get() => Get.find();
-  bool canPop() => false;
 
-  final ClientRepo clientRepo;
+  bool canPop() => true;
 
-  Image? avatar;
-  UserDetails? userDetails;
-  bool isLoading = false;
+  ClientRepo clientRepo;
+
+  final _avatar = Image.asset("").obs;
+
+  final _userDetails = UserDetails(id: 0, name: "", surname: "", dateBirth: "").obs;
+
+  final _isLoading = false.obs;
+
+  Image? get avatar => _avatar();
+  UserDetails? get userDetails => _userDetails();
+  bool get isLoading => _isLoading();
 
   ProfileController({required this.clientRepo});
+
+  // overrides
+
+  @override
+  void onTabOpen() {
+    reloadData();
+  }
 
   @override
   void onInit() {
@@ -26,7 +39,7 @@ class ProfileController extends MainTabController {
   }
 
   void reloadData() {
-    isLoading = true;
+    _isLoading(true);
     update();
     _getUserDetails();
     _getUserPhoto();
@@ -35,48 +48,38 @@ class ProfileController extends MainTabController {
   void _getUserPhoto() async {
     try {
       final result = await clientRepo.getUserPhoto() as AvatarImage;
-      avatar = Image.memory( Uint8List.fromList(result.image));
-
+      _avatar(Image.memory(Uint8List.fromList(result.image)));
       update();
     } catch (error) {
-      print("_getUserPhoto() failed with error: " + error.toString());
       update();
     }
   }
 
 
-  Future<dynamic> logout() async {
-    if (isLoading == true) return;
+  void logout(BuildContext context) async {
+    if (_isLoading == true) return;
 
-    isLoading = true;
+    _isLoading(true);
     update();
     await Future.delayed(const Duration(milliseconds: 1000), () async {
-      isLoading = false;
+      _isLoading(false);
       Get.offAndToNamed(Routes.LOGIN);
     });
   }
 
   void _getUserDetails() async {
-    isLoading = true;
+    _isLoading(true);
     try {
       final result = await clientRepo.getUserDetails();
       if (result != null) {
-        userDetails = result;
-        isLoading = false;
+        _userDetails(result);
+        _isLoading(false);
         update();
       }
     } catch (error) {
-      print("_getUserDetails() failed with error: " + error.toString());
+      _userDetails(UserDetails(id: 0, name: "", surname: "", dateBirth: ""));
+      _isLoading(false);
       update();
-      userDetails = null;
-      isLoading = false;
     }
-  }
-
-  // overrides
-
-  @override
-  void onTabOpen() {
-    reloadData();
   }
 }

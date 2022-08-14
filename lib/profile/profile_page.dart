@@ -11,16 +11,20 @@ import '../widgets/error_container.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   final _imageSize = Dimensions.height200;
+  ProfileController? pController;
 
   @override
   Widget build(BuildContext context) {
-    final logoutItem = LogoutWidget();
     return Scaffold(
         appBar: MainAppBar(
             titleText: "Profile",
-            rightItem: logoutItem
+            rightItem:
+               LogoutWidget(onPressed: () {
+                pController?.logout(context);
+            })
         ),
-        body: GetBuilder<ProfileController>(builder: (controller) {
+        body: Obx(() {
+          pController = controller;
           return controller.userDetails != null ? Container(
             decoration: BoxDecoration(
                 color: Colors.white
@@ -79,13 +83,15 @@ class ProfilePage extends GetView<ProfileController> {
   }
 }
 
+
 class LogoutWidget extends StatelessWidget {
-  const LogoutWidget({Key? key}) : super(key: key);
+  final Function() onPressed;
+  const LogoutWidget({required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ProfileController>(builder: (controller) {
-      return IconButton(
+    return Container(
+      child: IconButton(
         icon: const Icon(Icons.logout),
         onPressed: () {
           showDialog<void>(
@@ -111,8 +117,7 @@ class LogoutWidget extends StatelessWidget {
                   TextButton(
                     child: const Text('Yes'),
                     onPressed: () async {
-                      Get.back();
-                      await controller.logout();
+                      this.onPressed();
                     },
                   ),
                 ],
@@ -120,7 +125,7 @@ class LogoutWidget extends StatelessWidget {
             },
           );
         },
-      );
-    });
+      )
+    );
   }
 }
