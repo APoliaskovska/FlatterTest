@@ -91,8 +91,6 @@ class CardsController extends MainTabController  {
     _isLoaded(false);
     _isLoading(true);
 
-   print("getCardModelList() started");
-
    try {
      final result = await cardsRepo.getCards();
      if (result != null && result.cards.length > 0) {
@@ -102,16 +100,13 @@ class CardsController extends MainTabController  {
          _cardsList.add(resData[i]);
        }
        _isLoaded(true);
-       print("getCardModelList() loaded: " + resData.toString());
      } else {
        _isLoaded(false);
-       print("getCardModelList() loaded: " +  "false");
      }
      _isLoading(false);
      update();
    } catch (error) {
     _isLoading(false);
-    print("getCardModelList() failed with error: " + error.toString());
      update();
     }
   }

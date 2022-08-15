@@ -9,7 +9,7 @@ import '../routes/routes.dart';
 class ProfileController extends MainTabController {
   static ProfileController get() => Get.find();
 
-  bool canPop() => true;
+  bool canPop() => false;
 
   ClientRepo clientRepo;
 
@@ -61,9 +61,10 @@ class ProfileController extends MainTabController {
 
     _isLoading(true);
     update();
+    await clientRepo.logout();
+    _isLoading(false);
     await Future.delayed(const Duration(milliseconds: 1000), () async {
-      _isLoading(false);
-      Get.offAndToNamed(Routes.LOGIN);
+      Get.offAllNamed(Routes.LOGIN);
     });
   }
 

@@ -16,6 +16,8 @@ class AuthController extends GetxController {
   static AuthController? _this;
   static AuthController? get controller => _this;
 
+  bool canPop() => false;
+
   static String? _login;
   static String? _password;
   final _isValidLogin = false.obs;
@@ -61,6 +63,7 @@ class AuthController extends GetxController {
       if (user.login.isEmpty) {
         AppUtils.showError("User not found...");
       } else {
+        saveToken(user.token);
         Get.offAllNamed(Routes.MAIN);
       }
     } on GrpcError catch(e) {
@@ -85,9 +88,8 @@ class AuthController extends GetxController {
     });
   }
 
-  Future<void> performLogin() async {
-    String newToken = generateRandomString(17);
-    await authRepo.setToken(newToken);
+  Future<void> saveToken(String token) async {
+    await authRepo.setToken(token);
   }
 
   String generateRandomString(int len) {

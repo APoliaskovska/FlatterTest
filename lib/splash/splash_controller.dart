@@ -1,25 +1,26 @@
 import 'package:get/get.dart';
 
 import '../routes/routes.dart';
+import '../service/repository/auth_repo.dart';
 
 class SplashController extends GetxController {
-  // ApiService get api => ApiService.get();
+  static SplashController get() => Get.find();
 
-  @override
-  void onReady() {
-    super.onReady();
-    _initState();
-  }
+  final AuthRepo authRepo;
+  SplashController({required this.authRepo});
 
-  Future<void> _initState() async {
+  static SplashController? _this;
+  static SplashController? get controller => _this;
+
+  Future<String> checkNextRoute() async {
     await 1.delay();
-    // final hasToken = api.auth.hasToken;
-    // final user = SessionService.user;
-    bool hasToken = false;
-    if (!hasToken) {
-      Get.offAllNamed(Routes.LOGIN);
-    } else {
-      Get.offAllNamed(Routes.MAIN);
-    }
+    return await authRepo.getToken().then((token) {
+      if (token != null && token.isNotEmpty) {
+        return Routes.MAIN;
+      } else {
+        return Routes.LOGIN;
+      }
+    });
   }
+
 }

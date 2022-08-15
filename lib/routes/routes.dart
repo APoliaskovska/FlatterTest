@@ -33,7 +33,11 @@ abstract class AppPages {
     GetPage(
       name: Routes.SPLASH,
       page: () => SplashScreen(),
-      binding: BindingsBuilder.put(() => SplashController()),
+      binding: BindingsBuilder.put(() {
+        Get.lazyPut(() => MainService());
+        Get.lazyPut(() => AuthRepo());
+        return SplashController(authRepo: Get.find());
+      }),
     ),
     GetPage(
       name: Routes.LOGIN,

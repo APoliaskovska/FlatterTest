@@ -25,20 +25,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       actionWidgets.add(IconButton(
         icon: const Icon(Icons.person),
         onPressed: () {
-          AuthController authCont = Get.find<AuthController>();
-          authCont.checkLogin().then((isLoggedIn) {
-            if (isLoggedIn == false) {
-              Get.snackbar(
-                  "Auth",
-                  "Generating new token...");
-              authCont.performLogin();
-            } else {
-              Get.snackbar(
-                  "Auth",
-                  "Token is already saved"
-              );
-            }
-          });
+         //TODO
         },
       ));
     } else if (rightItem != null){
