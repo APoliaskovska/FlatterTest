@@ -13,7 +13,7 @@ class ProfileController extends MainTabController {
 
   ClientRepo clientRepo;
 
-  final _avatar = Image.asset("").obs;
+  final _avatar = Image.asset("assets/images/avatar-placeholder.jpg").obs;
 
   final _userDetails = UserDetails(id: 0, name: "", surname: "", dateBirth: "").obs;
 

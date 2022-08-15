@@ -33,11 +33,14 @@ class ProfilePage extends GetView<ProfileController> {
             child: Column(
               children: [
                 Container(
+                  clipBehavior: Clip.hardEdge,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                       color: AppColors.primaryColor,
                       border: Border.all(
-                          color: AppColors.blueSecondaryColor
+                        strokeAlign: StrokeAlign.outside,
+                        width: 1.0,
+                        color: AppColors.primaryColor
                       ),
                       borderRadius: BorderRadius.all(
                           Radius.circular(_imageSize / 2))
@@ -47,8 +50,7 @@ class ProfilePage extends GetView<ProfileController> {
                   child: controller.avatar == null ?
                   BigText(text: "${controller.userDetails!.name[0]}${controller
                       .userDetails!.surname[0]}".toUpperCase())
-                      : controller
-                      .avatar!, //Image.asset("images/profile.jpg")
+                      : controller.avatar!, //Image.asset("images/profile.jpg")
                 ),
                 SizedBox(height: Dimensions.height15 * 2,),
                 Row(

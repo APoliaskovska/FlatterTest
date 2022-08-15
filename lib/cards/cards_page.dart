@@ -36,7 +36,8 @@ class CardsPage extends GetView<CardsController> {
                     physics: const BouncingScrollPhysics(),
                     itemCount: controller.cardsList.length,
                     itemBuilder: (context, position) {
-                      return _buildPageItem(position);},
+                      return _buildPageItem(position);
+                      },
                   ) : controller.isLoaded == false && controller.isLoading == false ? ErrorContainer("Error loading cards...\nTry again later", () {
                     controller.reloadData();
                   }) : PageView.builder(
@@ -93,18 +94,21 @@ class CardsPage extends GetView<CardsController> {
   _buildPageItem(int index) {
     Matrix4 matrix = new Matrix4.identity();
 
-    if(index==controller.currPageValue.floor()){
-      var currScale = 1-(controller.currPageValue-index)*(1- _scaleFactor );
+    final page = controller.currPageValue.floor();
+    print("page = " + index.toString() + " current = " + page.toString());
+
+    if(index==page){
+      var currScale = 1-(page-index)*(1- _scaleFactor);
       var currTrans = _height*(1-currScale)/2;
       matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
         ..setTranslationRaw(0, currTrans, 0);
-    }else if(index ==controller.currPageValue.floor()+1){
-      var currScale = _scaleFactor+(controller.currPageValue-index+1)*(1- _scaleFactor );
+    }else if(index ==page+1){
+      var currScale = _scaleFactor+(page-index+1)*(1- _scaleFactor);
       var currTrans = _height*(1-currScale)/2;
       matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
         ..setTranslationRaw(0, currTrans, 0);
-    }else if(index ==controller.currPageValue.floor()-1){
-      var currScale = 1-(controller.currPageValue-index)*(1- _scaleFactor );
+    }else if(index ==page-1){
+      var currScale = 1-(page-index)*(1- _scaleFactor);
       var currTrans = _height*(1-currScale)/2;
       matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
         ..setTranslationRaw(0, currTrans, 0);
@@ -114,30 +118,49 @@ class CardsPage extends GetView<CardsController> {
         ..setTranslationRaw(0, _height*(1-_scaleFactor)/2, 0);
     }
 
-    return Transform(
-      transform: matrix,
-      child: GetBuilder<CardsController>(builder: (controller) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 0),
-            child:   GestureDetector(
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: CardBody(controller.cardsList[index]),
-              ),
-              onTap: (){
-                Get.snackbar(
-                  "Test",
-                  "Did tap on card ${controller.cardsList[index].holderName}",
-                  backgroundColor: AppColors.primaryColor,
-                  colorText: Colors.white,
-                  duration: Duration(seconds: 3),
-                );
-                controller.onCardTapped(controller.cardsList[index].id);
-              },
-            ),
+    print("matrix = " + matrix.toString());
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 0),
+      child:   GestureDetector(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: CardBody(controller.cardsList[index]),
+        ),
+        onTap: (){
+          Get.snackbar(
+            "Test",
+            "Did tap on card ${controller.cardsList[index].holderName}",
+            backgroundColor: AppColors.primaryColor,
+            colorText: Colors.white,
+            duration: Duration(seconds: 3),
           );
-        }
+          controller.onCardTapped(controller.cardsList[index].id);
+        },
       ),
     );
+
+    // return Transform(
+    //   transform: matrix,
+    //   child: Padding(
+    //     padding: EdgeInsets.symmetric(horizontal: 0),
+    //     child:   GestureDetector(
+    //       child: Align(
+    //         alignment: Alignment.topCenter,
+    //         child: CardBody(controller.cardsList[index]),
+    //       ),
+    //       onTap: (){
+    //         Get.snackbar(
+    //           "Test",
+    //           "Did tap on card ${controller.cardsList[index].holderName}",
+    //           backgroundColor: AppColors.primaryColor,
+    //           colorText: Colors.white,
+    //           duration: Duration(seconds: 3),
+    //         );
+    //         controller.onCardTapped(controller.cardsList[index].id);
+    //       },
+    //     ),
+    //   ),
+    // );
   }
 }

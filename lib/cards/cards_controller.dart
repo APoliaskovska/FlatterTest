@@ -33,23 +33,21 @@ class CardsController extends MainTabController  {
 
   final _isLoaded = false.obs;
   final _isLoading = false.obs;
+  final _currPageValue = 0.0.obs;
 
   CardsController({required this.cardsRepo});
 
   final List<PaymentCard> _cardsList = [];
   bool get isLoaded => _isLoaded();
   bool get isLoading => _isLoading();
+  double get currPageValue => _currPageValue();
 
   List<CardsMenuItems> get cardsMenuItems => CardsMenuItems.values;
   List<PaymentCard> get cardsList => _cardsList;
 
-  var currPageValue = 0.0;
-
   void onCardTapped(int id) {
     print("did tap card id $id");
   }
-
-
 
   @override
   void onTabOpen() {
@@ -62,7 +60,7 @@ class CardsController extends MainTabController  {
     super.onInit();
     reloadData();
     pageController.addListener(() {
-      currPageValue = pageController.page!;
+      _currPageValue(pageController.page);
     });
   }
 
