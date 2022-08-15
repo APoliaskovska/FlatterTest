@@ -7,9 +7,10 @@ abstract class MainTabController extends GetxController {
 
   MainController get rootController => Get.find();
 
-  BaseTabController() {
+  MainTabController() {
     final myNavIndex = rootController.getNavItemIndexByNavKey(navId ?? 0);
     ever(rootController.selectedNav, (int value) {
+      print("selectedNav = " + value.toString());
       if (myNavIndex != null && myNavIndex == value) {
         _isTabOpen = true;
         onTabOpen();

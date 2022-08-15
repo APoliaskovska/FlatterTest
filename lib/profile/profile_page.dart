@@ -11,7 +11,6 @@ import '../widgets/error_container.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   final _imageSize = Dimensions.height200;
-  ProfileController? pController;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +18,11 @@ class ProfilePage extends GetView<ProfileController> {
         appBar: MainAppBar(
             titleText: "Profile",
             rightItem:
-               LogoutWidget(onPressed: () {
-                pController?.logout(context);
+            LogoutWidget(onPressed: () {
+              controller.logout(context);
             })
         ),
         body: Obx(() {
-          pController = controller;
           return controller.userDetails != null ? Container(
             decoration: BoxDecoration(
                 color: Colors.white

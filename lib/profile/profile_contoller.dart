@@ -29,6 +29,7 @@ class ProfileController extends MainTabController {
 
   @override
   void onTabOpen() {
+    super.onTabOpen();
     reloadData();
   }
 
