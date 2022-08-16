@@ -35,4 +35,7 @@ class MainService extends GetxService {
     return await stub.getUserAvatar(User(id: 1));
   }
 
+  Future<dynamic> getTransactions(int cardId) async {
+    return await stub.getTransactionsList(TransactionsListRequest(cardId: cardId));
+  }
 }

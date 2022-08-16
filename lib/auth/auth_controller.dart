@@ -20,27 +20,29 @@ class AuthController extends GetxController {
 
   static String? _login;
   static String? _password;
+
   final _isValidLogin = false.obs;
   final _isValidPassword = false.obs;
   final _inProgress = false.obs;
+  final _isFirstLoad = true.obs;
 
   bool get isValidLogin => _isValidLogin();
   bool get isValidPassword => _isValidPassword();
   bool get inProgress => _inProgress();
+  bool get isFirstLoad => _isFirstLoad();
 
   @override
   void onInit() {
     super.onInit();
-    _initialLoad();
-  }
-
-  void _initialLoad(){
-
   }
 
   void setLogin(String? login){
     _login = login;
-    _isValidLogin(_login != null && _login!.length > 0);
+    final bool isValid = _login != null && _login!.length > 0;
+    _isValidLogin(isValid);
+    if (isValid == true){
+      _isFirstLoad(false);
+    }
     update();
   }
 

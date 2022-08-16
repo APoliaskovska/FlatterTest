@@ -9,6 +9,10 @@ class CardsRepo extends GetxService {
   Future<dynamic> getCards() async{
     return await _grpcService.getUserCards(User(id: 2, login: "Test"));
   }
+
+  Future<TransactionsList?> getTransactionList(int cardId) async{
+    return await _grpcService.getTransactions(cardId);
+  }
 }
 
 

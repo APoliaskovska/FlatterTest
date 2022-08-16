@@ -77,7 +77,7 @@ class CardsController extends MainTabController  {
   void onMenuItemTapped(int index, BuildContext context) {
     switch (cardsMenuItems[index]){
       case CardsMenuItems.cardLimits:
-        Get.toNamed(Routes.CARDS_DETAILS);
+       // Get.toNamed(Routes.CARDS_DETAILS);
         break;
         default:
           break;

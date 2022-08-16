@@ -8,7 +8,6 @@ import 'package:sample/widgets/small_text.dart';
 import '../widgets/main_app_bar.dart';
 
 class AuthPage extends GetView<AuthController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +33,7 @@ class AuthPage extends GetView<AuthController> {
                         Get.find<AuthController>().setLogin(value);
                       },
                     style: const TextStyle(fontSize: 18.0),
-                    decoration: controller.isValidLogin ? InputDecoration(
+                    decoration: controller.isValidLogin || controller.isFirstLoad ? InputDecoration(
                       hintText: 'Login',
                     ) : InputDecoration(
                         hintText: 'Login',
@@ -52,7 +51,7 @@ class AuthPage extends GetView<AuthController> {
                         Get.find<AuthController>().setPassword(value);
                       },
                       style: const TextStyle(fontSize: 18.0),
-                      decoration: controller.isValidPassword ? InputDecoration(
+                      decoration: controller.isValidPassword || controller.isFirstLoad ? InputDecoration(
                         hintText: 'Password'
                       ) : InputDecoration(
                           hintText: 'Password',

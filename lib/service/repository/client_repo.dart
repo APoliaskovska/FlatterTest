@@ -15,6 +15,7 @@ class ClientRepo extends GetxService {
   }
 
   Future<void> logout() async {
+    await _storage.delete(key: "token");
     await _storage.deleteAll();
   }
 }
