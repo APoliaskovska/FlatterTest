@@ -83,6 +83,10 @@ class CardsPage extends GetView<CardsController> {
                         ),
                       )
                   ]
+              ),
+              TextButton(
+                onPressed: () => throw Exception(),
+                child: const Text("Throw Test Exception"),
               )
             ],
           );
@@ -128,14 +132,7 @@ class CardsPage extends GetView<CardsController> {
           child: CardBody(controller.cardsList[index]),
         ),
         onTap: (){
-          Get.snackbar(
-            "Test",
-            "Did tap on card ${controller.cardsList[index].holderName}",
-            backgroundColor: AppColors.primaryColor,
-            colorText: Colors.white,
-            duration: Duration(seconds: 3),
-          );
-          controller.onCardTapped(controller.cardsList[index].id);
+          controller.onCardTapped(index);
         },
       ),
     );

@@ -45,8 +45,12 @@ class CardsController extends MainTabController  {
   List<CardsMenuItems> get cardsMenuItems => CardsMenuItems.values;
   List<PaymentCard> get cardsList => _cardsList;
 
-  void onCardTapped(int id) {
-    print("did tap card id $id");
+  void onCardTapped(int index) {
+    print("did tap card id $index");
+   // if (cardsList.length <= index) { return; }
+    final card = cardsList[index];
+    Get.toNamed(Routes.CARDS_DETAILS, arguments: [card]);
+   // Get.to(() => CardDetailsPage(), arguments: [card]);
   }
 
   @override

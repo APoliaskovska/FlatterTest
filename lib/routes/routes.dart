@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/auth/auth_controller.dart';
 import 'package:sample/auth/auth_page.dart';
 import 'package:sample/card_details/card_details_controller.dart';
@@ -72,7 +73,10 @@ abstract class AppPages {
     GetPage(
       name: Routes.CARDS_DETAILS,
       page: () => CardDetailsPage(),
-      binding: BindingsBuilder.put(() => CardDetailsController()),
+      binding: BindingsBuilder.put(() {
+        Get.lazyPut(() => CardsRepo());
+        return CardDetailsController(cardsRepo: Get.find());
+      }),
     )
   ];
 }

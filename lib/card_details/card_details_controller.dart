@@ -1,21 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:proto_sample/generated/sample.pb.dart';
+
+import '../service/repository/cards_repo.dart';
 
 class CardDetailsController extends GetxController {
   static CardDetailsController get() => Get.find();
 
-  static CardDetailsController? _this;
-  static CardDetailsController? get controller => _this;
+  final CardsRepo cardsRepo;
 
-  factory CardDetailsController() {
-    if (_this == null) _this = CardDetailsController._();
-    return _this!;
-  }
+  final _card = PaymentCard().obs;
 
-  CardDetailsController._();
+  PaymentCard get paymentCard => _card();
+
+  CardDetailsController({required this.cardsRepo});
+
+  dynamic _argumentData = Get.arguments;
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    var data = _argumentData;
+    if (data[0] != null){
+      _card(data[0]);
+    }
   }
 }

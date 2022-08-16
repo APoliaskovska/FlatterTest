@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:sample/widgets/small_text.dart';
-
+import 'package:get/get.dart';
+import 'package:sample/card_details/card_details_controller.dart';
+import 'package:sample/utils/dimensions.dart';
+import '../cards/widgets/card_body.dart';
 import '../widgets/main_app_bar.dart';
 
-class CardDetailsPage extends StatefulWidget {
-  const CardDetailsPage({Key? key}) : super(key: key);
-
-  @override
-  State<CardDetailsPage> createState() => _CardDetailsPageState();
-}
-
-class _CardDetailsPageState extends  State<CardDetailsPage> {
+class CardDetailsPage extends  GetView<CardDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  const MainAppBar(
-          titleText: "Card Limits"
+      appBar: const MainAppBar(
+          titleText: "Cards",
+          showAccountIcon: false
       ),
-        body: Container(
-          alignment: Alignment.center,
-          child: SmallText(text: "Card Details Screen"),
-        )
+      body:  Obx(() {
+        return Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(10),
+                width: Dimensions.screenWidth,
+                child: CardBody(controller.paymentCard)
+            )],
+        );
+      }),
     );
   }
 }
