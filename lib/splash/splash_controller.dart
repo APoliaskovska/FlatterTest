@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:sample/firebase_options.dart';
+import 'package:sample/service/auth_service.dart';
 
 import '../routes/routes.dart';
 import '../service/repository/auth_repo.dart';
@@ -22,7 +23,7 @@ class SplashController extends GetxController {
     } catch (error) {
       print("Firebase error: " + error.toString());
     }
-    return await authRepo.getToken().then((token) {
+    return await AuthService().getToken().then((token) {
       if (token != null && token.isNotEmpty) {
         return Routes.MAIN;
       } else {

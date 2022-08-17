@@ -1,15 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
-import 'package:sample/constants/constants.dart';
+import 'package:sample/routes/routes.dart';
 
 import '../service/repository/cards_repo.dart';
-
-extension TransactionStatus on Transaction {
-  Color statusColor() {
-    return this.status == "Fail" ? Colors.red : AppColors.mediumGrayColor;
-  }
-}
 
 class CardDetailsController extends GetxController with StateMixin {
   static CardDetailsController get() => Get.find();
@@ -24,12 +17,10 @@ class CardDetailsController extends GetxController with StateMixin {
 
   CardDetailsController({required this.cardsRepo});
 
-  dynamic _argumentData = Get.arguments;
-
   @override
   void onInit() async {
     super.onInit();
-    var data = _argumentData;
+    var data = Get.arguments;
     if (data[0] != null){
       _card(data[0]);
     }
@@ -49,5 +40,9 @@ class CardDetailsController extends GetxController with StateMixin {
     } catch (error) {
       print("Error: " + error.toString());
     }
+  }
+
+  void openSearch(){
+    Get.toNamed(Routes.SEARCH_TRANSACTION, arguments: transactions);
   }
 }

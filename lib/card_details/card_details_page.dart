@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/card_details/card_details_controller.dart';
+import 'package:sample/card_details/widgets/transaction_item.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 import '../cards/widgets/card_body.dart';
@@ -10,9 +11,12 @@ class CardDetailsPage extends  GetView<CardDetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(
-          titleText: "Cards",
-          showAccountIcon: false
+      appBar: MainAppBar(
+        titleText: "Cards",
+        showAccountIcon: false,
+        rightItem: SearchWidget(onPressed: (){
+          controller.openSearch();
+        }),
       ),
       body:  controller.obx((state) {
         return SingleChildScrollView(
@@ -21,7 +25,7 @@ class CardDetailsPage extends  GetView<CardDetailsController> {
 
               //CARD VIEW
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(Dimensions.widthPadding10),
                   width: Dimensions.screenWidth,
                   child: CardBody(controller.paymentCard)
               ),
@@ -35,41 +39,7 @@ class CardDetailsPage extends  GetView<CardDetailsController> {
                     for(int i=0; i<controller.transactions.length; i++)
                       Column(
                         children: [
-                          Container(
-                            width: Dimensions.screenWidth,
-                            padding: EdgeInsets.all(Dimensions.widthPadding10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SmallText(text: controller.transactions[i].referenceNumber, fontType: FontType.medium,),
-                                    const SizedBox(width: 8, height: 10),
-                                    SmallText(text: controller.transactions[i].amount.toStringAsFixed(2) + " " + controller.transactions[i].currency),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SmallText(text: "Fee:"),
-                                    SmallText(text: controller.transactions[i].fee.toStringAsFixed(2) + " " + controller.transactions[i].currency),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SmallText(text: "Status: " +  controller.transactions[i].status),
-                                    SmallText(text: controller.transactions[i].date),
-                                  ],
-                                )
-                              ],
-                            ),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(Dimensions.radius20/2)),
-                                border: Border.all(color: controller.transactions[i].statusColor()),
-                            ),
-                          ),
+                          TransactionItem(controller.transactions[i]),
                           SizedBox(height: Dimensions.height10)
                         ],
                       )
@@ -88,6 +58,23 @@ class CardDetailsPage extends  GetView<CardDetailsController> {
       },
         onLoading: Center(child: CircularProgressIndicator()),
       ),
+    );
+  }
+}
+
+class SearchWidget extends StatelessWidget {
+  final Function() onPressed;
+  const SearchWidget({required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: IconButton(
+          icon: const Icon(Icons.search),
+          onPressed: () {
+            onPressed();
+          },
+        )
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
+import 'package:sample/service/auth_service.dart';
 import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/utils/get_utils.dart';
 import 'package:grpc/grpc.dart';
@@ -81,7 +82,7 @@ class AuthController extends GetxController {
   }
 
   Future<bool> checkLogin() async {
-    return await authRepo.getToken().then((token) {
+    return await AuthService().getToken().then((token) {
       if (token != null && token.isNotEmpty) {
         return true;
       } else {
@@ -91,7 +92,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> saveToken(String token) async {
-    await authRepo.setToken(token);
+    await AuthService().setToken(token);
   }
 
   String generateRandomString(int len) {

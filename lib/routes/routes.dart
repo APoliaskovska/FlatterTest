@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
-import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/auth/auth_controller.dart';
 import 'package:sample/auth/auth_page.dart';
 import 'package:sample/card_details/card_details_controller.dart';
+import 'package:sample/card_details/cards_transactions/search_transaction_controller.dart';
+import 'package:sample/card_details/cards_transactions/search_transaction_page.dart';
 import 'package:sample/cards/cards_controller.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import 'package:sample/splash/splash_controller.dart';
@@ -25,6 +26,7 @@ abstract class Routes {
   static const PROFILE = '/profile';
   static const CARDS = '/cards';
   static const CARDS_DETAILS = '/cards_details';
+  static const SEARCH_TRANSACTION = '/search_transaction';
 }
 
 abstract class AppPages {
@@ -76,6 +78,15 @@ abstract class AppPages {
       binding: BindingsBuilder.put(() {
         Get.lazyPut(() => CardsRepo());
         return CardDetailsController(cardsRepo: Get.find());
+      }),
+    ),
+    GetPage(
+      name: Routes.SEARCH_TRANSACTION,
+      page: () => SearchTransactionPage(),
+      transition: Transition.circularReveal,
+      binding: BindingsBuilder.put(() {
+        Get.lazyPut(() => CardsRepo());
+        return SearchTransactionController(cardsRepo: Get.find());
       }),
     )
   ];
