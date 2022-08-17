@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:sample/main/widgets/bottom_navbar.dart';
 import 'main_controller.dart';
 
-class MainPage extends GetView<MainController> {
+class MainPage extends GetView<MainController> with WidgetsBindingObserver {
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

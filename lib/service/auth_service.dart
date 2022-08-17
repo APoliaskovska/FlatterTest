@@ -12,9 +12,12 @@ abstract class AuthServicesKeys {
   static const PASSCODE = 'passcode';
 }
 
-class AuthService extends GetxService {
+class AuthService extends GetxService  {
   static final AuthService _instance = new AuthService._internal();
   final _storage = const FlutterSecureStorage();
+
+  bool isPasscodePass = false;
+
   List<_SecItem> _items = [];
 
   factory AuthService() {
@@ -25,17 +28,25 @@ class AuthService extends GetxService {
 
   //Public
 
-  Future<bool> isPasscodeExist() async {
-    return _readSecureItem(AuthServicesKeys.PASSCODE) != null;
+  Future<void> cleanStorage() async {
+    return await _storage.deleteAll();
+  }
+
+    Future<bool> isPasscodeExist() async {
+    String? passcode = await _readSecureItem(AuthServicesKeys.PASSCODE);
+    return passcode != null && passcode.isNotEmpty;
   }
 
   Future<void> setPasscode(String passcode) async {
     _addNewItem(AuthServicesKeys.PASSCODE, passcode);
+    this.isPasscodePass = true;
     await _readAll();
   }
 
   Future<bool> isPasscodeValid(String passcode) async {
-    return _readSecureItem(AuthServicesKeys.PASSCODE) == passcode;
+    bool valid = await _readSecureItem(AuthServicesKeys.PASSCODE) == passcode;
+    this.isPasscodePass = valid;
+    return valid;
   }
 
   Future<String?> getToken() async {

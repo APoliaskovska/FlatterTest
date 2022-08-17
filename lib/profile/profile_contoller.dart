@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/main/widgets/main_tabbar.dart';
+import 'package:sample/service/auth_service.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import '../routes/routes.dart';
 
@@ -63,6 +64,7 @@ class ProfileController extends MainTabController {
     _isLoading(true);
     update();
     await clientRepo.logout();
+    await AuthService().cleanStorage();
     _isLoading(false);
     await Future.delayed(const Duration(milliseconds: 1000), () async {
       Get.offAllNamed(Routes.LOGIN);

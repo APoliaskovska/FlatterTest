@@ -1,19 +1,18 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+
 import 'package:get/get.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:sample/main/models/nav_data.dart';
-import 'package:sample/routes/routes.dart';
+import 'package:sample/service/auth_service.dart';
 
 import '../service/grpc/grpc_service.dart';
+import '../service/passcode/passcode_service.dart';
 
-class MainController extends GetxController {
+class MainController extends GetxController with WidgetsBindingObserver {
   final _navData = NavData();
 
-//  List<NavBarItem> get menuData => _navData.menuData;
   List<NavItemData> get menuData {
     final output = List<NavItemData>.from(_navData.myData);
-    // if (!SessionService.user.isSeller) {
-    //   list.removeWhere((e) => e.route == Pages.SALE);
-    // }
     return output;
   }
 
@@ -30,6 +29,7 @@ class MainController extends GetxController {
     super.onInit();
     Get.lazyPut(() => MainService());
     _currentModel = menuData.first;
+    WidgetsBinding.instance!.addObserver(this);
   }
 
   List<Widget> getPages() {
@@ -86,5 +86,31 @@ class MainController extends GetxController {
 
   Future<bool> canPop() async {
     return Future.value(false);
+  }
+
+  void showPasscode(){
+    PasscodeService().showPasscodeIfNeeded();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    PasscodeService().showPasscodeIfNeeded();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.resumed) {
+      PasscodeService().showPasscodeIfNeeded();
+    } else  if (state == AppLifecycleState.paused) {
+      AuthService().isPasscodePass = false;
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
   }
 }

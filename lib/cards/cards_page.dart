@@ -106,7 +106,6 @@ class CardsPage extends GetView<CardsController> {
     Matrix4 matrix = new Matrix4.identity();
 
     final page = controller.currPageValue.floor();
-    print("page = " + index.toString() + " current = " + page.toString());
 
     if(index==page){
       var currScale = 1-(page-index)*(1- _scaleFactor);
@@ -128,8 +127,6 @@ class CardsPage extends GetView<CardsController> {
       matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
         ..setTranslationRaw(0, _height*(1-_scaleFactor)/2, 0);
     }
-
-    print("matrix = " + matrix.toString());
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0),
