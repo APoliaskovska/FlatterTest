@@ -5,6 +5,8 @@ import 'package:sample/card_details/card_details_controller.dart';
 import 'package:sample/card_details/cards_transactions/search_transaction_controller.dart';
 import 'package:sample/card_details/cards_transactions/search_transaction_page.dart';
 import 'package:sample/cards/cards_controller.dart';
+import 'package:sample/passcode/passcode_controller.dart';
+import 'package:sample/passcode/passcode_page.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import 'package:sample/splash/splash_controller.dart';
 import 'package:sample/card_details/card_details_page.dart';
@@ -21,6 +23,8 @@ import '../service/grpc/grpc_service.dart';
 abstract class Routes {
   static const SPLASH = '/splash';
   static const LOGIN = '/login';
+
+  static const PASSCODE = '/passcode';
 
   static const MAIN = '/';
   static const PROFILE = '/profile';
@@ -87,6 +91,14 @@ abstract class AppPages {
       binding: BindingsBuilder.put(() {
         Get.lazyPut(() => CardsRepo());
         return SearchTransactionController(cardsRepo: Get.find());
+      }),
+    ),
+    GetPage(
+      name: Routes.PASSCODE,
+      page: () => PasscodePage(),
+      transition: Transition.circularReveal,
+      binding: BindingsBuilder.put(() {
+        return PasscodeController();
       }),
     )
   ];

@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:sample/main/models/nav_data.dart';
 import 'package:sample/service/auth_service.dart';
 
+import '../passcode/passcode_service.dart';
 import '../service/grpc/grpc_service.dart';
-import '../service/passcode/passcode_service.dart';
 
 class MainController extends GetxController with WidgetsBindingObserver {
   final _navData = NavData();
@@ -17,7 +17,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
   }
 
   int getNavItemIndexByNavKey(int navKey) {
-    return menuData.indexWhere((e) => e?.navItem?.navKey == navKey);
+    return menuData.indexWhere((e) => e.navItem.navKey == navKey);
   }
 
   final selectedNav = 0.obs;
@@ -29,7 +29,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
     super.onInit();
     Get.lazyPut(() => MainService());
     _currentModel = menuData.first;
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   List<Widget> getPages() {
@@ -88,21 +88,22 @@ class MainController extends GetxController with WidgetsBindingObserver {
     return Future.value(false);
   }
 
-  void showPasscode(){
-    PasscodeService().showPasscodeIfNeeded();
+  Future<void> _showPasscode() async {
+    final pService = PasscodeService();
+    await pService.showPasscodeIfNeeded();
   }
 
   @override
-  void onReady() {
+  void onReady() async {
     super.onReady();
-    PasscodeService().showPasscodeIfNeeded();
+    await _showPasscode();
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
-      PasscodeService().showPasscodeIfNeeded();
+      await _showPasscode();
     } else  if (state == AppLifecycleState.paused) {
       AuthService().isPasscodePass = false;
     }
@@ -110,7 +111,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
 
   @override
   void dispose() {
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
