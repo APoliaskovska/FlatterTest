@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
 import 'package:build_grpc_channel/build_grpc_channel.dart';
 
-const host = 'http://127.0.0.1';
+const host = 'http://127.0.0.1';// 'http://172.20.10.5'; for android build
 
 int get port => kIsWeb ? 8888 : 5555;
 

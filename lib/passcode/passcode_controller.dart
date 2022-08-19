@@ -2,6 +2,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
+import 'package:local_auth_ios/local_auth_ios.dart';
+import 'package:local_auth_android/local_auth_android.dart';
+
 import 'package:sample/passcode/passcode_service.dart';
 import 'package:sample/service/auth_service.dart';
 
@@ -15,12 +18,15 @@ class PasscodeController extends GetxController with StateMixin {
 
   final LocalAuthentication auth = LocalAuthentication();
   final _passcodeString = "".obs;
+  final _isPasscodeExist = false.obs;
+  final _showAnimation = false.obs;
 
   String get title => _title();
   String get passcodeString => _passcodeString();
+  bool get isPasscodeExist => _isPasscodeExist();
+  bool get showAnimation => _showAnimation();
 
   bool _isConfirmation = false;
-  bool _isPasscodeExist = false;
   String _passcodeConfirm = "";
   String _passcode = "";
 
@@ -33,8 +39,8 @@ class PasscodeController extends GetxController with StateMixin {
   void onInit() async {
     super.onInit();
 
-    _isPasscodeExist = await AuthService().isPasscodeExist();
-    _title(_isPasscodeExist ? "Enter Passcode" : "Create Passcode");
+    _isPasscodeExist(await AuthService().isPasscodeExist());
+    _title(isPasscodeExist ? "Enter Passcode" : "Create Passcode");
   }
 
   @override
@@ -42,7 +48,7 @@ class PasscodeController extends GetxController with StateMixin {
     super.onReady();
 
     await Future.delayed(const Duration(seconds: 1));
-    if (_isPasscodeExist == true) {
+    if (isPasscodeExist == true) {
       await checkBiometrics();
     }
   }
@@ -62,29 +68,30 @@ class PasscodeController extends GetxController with StateMixin {
       _passcode += index;
       _passcodeString(_passcode);
 
-      if (_isPasscodeExist == true) {
+      if (isPasscodeExist == true) {
         bool isValid = await AuthService().isPasscodeValid(_passcode);
         if (isValid) {
           _isConfirmation = false;
-          PasscodeService().closePasscode();
+          _close();
         } else {
-          _passcode = "";
-          _passcodeString(_passcode);
-          AppUtils.showError("Wrong passcode");
+          _showAnimation(true);
+         // AppUtils.showError("Wrong passcode");
         }
       } else if (_isConfirmation == false) {
+        _title("Confirm passcode");
         _isConfirmation = true;
         _passcodeConfirm = _passcode;
         _passcode = "";
         _passcodeString(_passcode);
       } else {
         _isConfirmation = false;
-        _isPasscodeExist = true;
+        _isPasscodeExist(true);
+
         bool isValid = _passcodeConfirm == _passcode;
         if (isValid == false) { return; }
         await AuthService().setPasscode(_passcode);
-        PasscodeService().closePasscode();
-        _passcodeConfirm = "";
+        _close();
+        _title("Enter passcode");
       }
     } else {
       _passcode += index;
@@ -98,24 +105,49 @@ class PasscodeController extends GetxController with StateMixin {
     _passcodeString(_passcode);
   }
 
+  void onAnimationEnd(){
+    _showAnimation(false);
+    _passcode = "";
+    _passcodeString(_passcode);
+  }
+
+  void _close() {
+    _passcode = "";
+    _passcodeConfirm = "";
+    _passcodeString(_passcode);
+    AuthService().isPasscodePass = true;
+    PasscodeService().closePasscode();
+  }
+
   Future<void> checkBiometrics() async {
+    if (await _isDeviceSupported() == false) { return; }
     final List<BiometricType> availableBiometrics =
     await auth.getAvailableBiometrics();
+    print("checkBiometrics tapped: " + availableBiometrics.toString());
 
     if (availableBiometrics.isEmpty) {
+      print("availableBiometrics isEmpty");
       return;
     }
 
     if (availableBiometrics.contains(BiometricType.fingerprint) ||
         availableBiometrics.contains(BiometricType.face)) {
+      print("availableBiometrics face || fingerprint");
       try {
         final bool didAuthenticate = await auth.authenticate(
             localizedReason: 'Please complete the biometrics to proceed.',
-            options: const AuthenticationOptions(biometricOnly: true));
+            options: const AuthenticationOptions(biometricOnly: true),
+          authMessages: const <AuthMessages>[
+            AndroidAuthMessages(
+              signInTitle: 'Oops! Biometric authentication required!',
+              cancelButton: 'No thanks',),
+            IOSAuthMessages(
+              cancelButton: 'No thanks',
+            )]
+        );
 
         if (didAuthenticate == true){
-          AuthService().isPasscodePass = true;
-          PasscodeService().closePasscode();
+          _close();
         }
       } on PlatformException catch (e) {
         print("PlatformException " + e.toString());
@@ -130,4 +162,10 @@ class PasscodeController extends GetxController with StateMixin {
     }
   }
 
+  Future<bool> _isDeviceSupported() async {
+    final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+    final bool canAuthenticate =
+        canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+    return canAuthenticate;
+  }
 }

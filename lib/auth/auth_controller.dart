@@ -71,6 +71,7 @@ class AuthController extends GetxController {
       }
     } on GrpcError catch(e) {
       _inProgress(false);
+      print("error " + e.toString());
       final eMessage = e.message;
       if (eMessage != null) {
         AppUtils.showError(eMessage);

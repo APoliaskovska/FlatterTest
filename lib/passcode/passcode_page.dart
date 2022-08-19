@@ -26,24 +26,16 @@ class PasscodePage extends  GetView<PasscodeController> {
                 return SmallText(text: controller.title, color: Colors.white, size: 18,);
               }),
               SizedBox(height: Dimensions.height20),
+
+              //INPUT DOTS
+
               Obx(() {
                 return Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         for (int i = 0; i < controller.inputCount; i++)
-                          Container(
-                            padding: EdgeInsets.all(Dimensions.widthPadding10),
-                            child: Container(
-                              height: Dimensions.height20,
-                              width: Dimensions.height20,
-                              decoration: BoxDecoration(
-                                  color: controller.isNumberEntered(i) ? Colors.white : Colors.transparent,
-                                  border: Border.all(color: Colors.white),
-                                  shape: BoxShape.circle
-                              ),
-                            ),
-                          )
+                          _dotWidget(controller.showAnimation, controller.isNumberEntered(i))
                       ],
                     )
                 );
@@ -119,16 +111,18 @@ class PasscodePage extends  GetView<PasscodeController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      IconButton(
-                        onPressed: () async {
-                          await controller.checkBiometrics();
-                        },
-                        icon: Icon(
+                      Obx(() {
+                        return controller.isPasscodeExist == true? IconButton(
+                          onPressed: () async {
+                            await controller.checkBiometrics();
+                            },
+                          icon: Icon(
                           Icons.tag_faces,
                           color: iconColor,
-                        ),
-                        iconSize: Dimensions.width50,
-                      ),
+                          ), iconSize: Dimensions.width50,
+                        ) :
+                        Container(height: Dimensions.width50/2, width: Dimensions.width50/2);
+                      }),
                       // this button is used to delete the last number
                       NumberButton(
                         number: 0,
@@ -155,7 +149,35 @@ class PasscodePage extends  GetView<PasscodeController> {
       ),
     );
   }
+
+  Widget _dotWidget(bool isAnimation, bool entered) {
+    final container = Container(
+      height: Dimensions.height20,
+      width: Dimensions.height20,
+      decoration: BoxDecoration(
+          color: entered ? Colors.white : Colors.transparent,
+          border: Border.all(color: Colors.white),
+          shape: BoxShape.circle
+      ),
+    );
+    return  Container(
+      height: Dimensions.height20*1.5,
+      width: Dimensions.height20*1.5,
+      alignment: Alignment.center,
+      child: AnimatedAlign(
+        alignment: isAnimation ? Alignment.centerLeft : Alignment.center,
+        curve: Curves.fastOutSlowIn,
+        duration: const Duration(milliseconds: 100),
+        child: Container(
+            child: container),
+        onEnd: (){
+          controller.onAnimationEnd();
+        },
+      ),
+    );
+  }
 }
+
 
 class NumberButton extends StatelessWidget {
   final int number;
