@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sample/passcode/passcode_controller.dart';
+import 'package:sample/pages/passcode/passcode_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 import 'package:get/get.dart';

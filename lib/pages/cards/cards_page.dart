@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/cards/cards_controller.dart';
-import 'package:sample/cards/widgets/card_body.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/pages/cards/widgets/card_body.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/main_app_bar.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../widgets/error_container.dart';
+import '../../widgets/error_container.dart';
+import 'cards_controller.dart';
 
 class CardsPage extends GetView<CardsController> {
   //scale factor
-  final double _scaleFactor = 0.8;
+  //final double _scaleFactor = 0.8;
   //view page height
   final double _height = Dimensions.screenWidth/1.88;
 
@@ -103,30 +103,30 @@ class CardsPage extends GetView<CardsController> {
   }
 
   _buildPageItem(int index) {
-    Matrix4 matrix = new Matrix4.identity();
-
-    final page = controller.currPageValue.floor();
-
-    if(index==page){
-      var currScale = 1-(page-index)*(1- _scaleFactor);
-      var currTrans = _height*(1-currScale)/2;
-      matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0, currTrans, 0);
-    }else if(index ==page+1){
-      var currScale = _scaleFactor+(page-index+1)*(1- _scaleFactor);
-      var currTrans = _height*(1-currScale)/2;
-      matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0, currTrans, 0);
-    }else if(index ==page-1){
-      var currScale = 1-(page-index)*(1- _scaleFactor);
-      var currTrans = _height*(1-currScale)/2;
-      matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0, currTrans, 0);
-    }else{
-      var currScale = 0.8;
-      matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
-        ..setTranslationRaw(0, _height*(1-_scaleFactor)/2, 0);
-    }
+    // Matrix4 matrix = new Matrix4.identity();
+    //
+    // final page = controller.currPageValue.floor();
+    //
+    // if(index==page){
+    //   var currScale = 1-(page-index)*(1- _scaleFactor);
+    //   var currTrans = _height*(1-currScale)/2;
+    //   matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+    //     ..setTranslationRaw(0, currTrans, 0);
+    // }else if(index ==page+1){
+    //   var currScale = _scaleFactor+(page-index+1)*(1- _scaleFactor);
+    //   var currTrans = _height*(1-currScale)/2;
+    //   matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+    //     ..setTranslationRaw(0, currTrans, 0);
+    // }else if(index ==page-1){
+    //   var currScale = 1-(page-index)*(1- _scaleFactor);
+    //   var currTrans = _height*(1-currScale)/2;
+    //   matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+    //     ..setTranslationRaw(0, currTrans, 0);
+    // }else{
+    //   var currScale = 0.8;
+    //   matrix = Matrix4.diagonal3Values(1.0, currScale, 1.0)
+    //     ..setTranslationRaw(0, _height*(1-_scaleFactor)/2, 0);
+    // }
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 0),

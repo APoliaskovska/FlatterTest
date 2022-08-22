@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
-import 'package:sample/main/widgets/main_tabbar.dart';
 import 'package:sample/routes/routes.dart';
-import '../service/repository/cards_repo.dart';
+
+import '../../service/repository/cards_repo.dart';
+import '../main/widgets/main_tabbar.dart';
 
 enum CardsMenuItems { cardLimits, changePIN, freezeCard, closeCard }
 

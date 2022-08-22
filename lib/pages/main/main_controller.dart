@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:sample/main/models/nav_data.dart';
 import 'package:sample/service/auth_service.dart';
 
+import '../../service/grpc/grpc_service.dart';
 import '../passcode/passcode_service.dart';
-import '../service/grpc/grpc_service.dart';
+import 'models/nav_data.dart';
 
 class MainController extends GetxController with WidgetsBindingObserver {
   final _navData = NavData();
@@ -37,14 +37,10 @@ class MainController extends GetxController with WidgetsBindingObserver {
     if (_pages.isEmpty) {
       _pages.addAll(menuData.map(
             (e) {
-          if (e.navItem != null) {
-            return Navigator(
-              key: Get.nestedKey(e.navItem.navKey),
-              onGenerateRoute: e.navItem.generateRoute,
-            );
-          } else {
-            return Container();
-          }
+              return Navigator(
+                key: Get.nestedKey(e.navItem.navKey),
+                onGenerateRoute: e.navItem.generateRoute,
+              );
         },
       ));
     }
@@ -73,15 +69,11 @@ class MainController extends GetxController with WidgetsBindingObserver {
 
   Widget getPage() {
     final model = menuData[selectedNav()];
-    if (model.navItem != null) {
-      return Navigator(
-        key: Get.nestedKey(model.navItem.navKey),
-        initialRoute: '/',
-        onGenerateRoute: model.navItem.generateRoute,
-      );
-    } else {
-      return Container();
-    }
+    return Navigator(
+      key: Get.nestedKey(model.navItem.navKey),
+      initialRoute: '/',
+      onGenerateRoute: model.navItem.generateRoute,
+    );
   }
 
   Future<bool> canPop() async {

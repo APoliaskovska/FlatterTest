@@ -6,8 +6,7 @@ import 'package:sample/splash/splash_controller.dart';
 import '../utils/dimensions.dart';
 
 class SplashScreen extends StatelessWidget  {
-
-  SplashController controller = Get.put(SplashController(authRepo: Get.find()));
+  final SplashController controller = Get.put(SplashController(authRepo: Get.find()));
 
   @override
   Widget build(BuildContext context) {

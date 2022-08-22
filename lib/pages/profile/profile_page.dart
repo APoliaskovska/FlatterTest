@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/profile/profile_contoller.dart';
+import 'package:sample/pages/profile/profile_contoller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/big_text.dart';
 import 'package:sample/widgets/main_app_bar.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../widgets/error_container.dart';
+import '../../widgets/error_container.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   final _imageSize = Dimensions.height200;

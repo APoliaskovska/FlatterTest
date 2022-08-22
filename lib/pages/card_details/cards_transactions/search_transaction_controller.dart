@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
 
-import '../../service/repository/cards_repo.dart';
+import '../../../service/repository/cards_repo.dart';
 
 class SearchTransactionController extends GetxController with StateMixin {
   static SearchTransactionController get() => Get.find();

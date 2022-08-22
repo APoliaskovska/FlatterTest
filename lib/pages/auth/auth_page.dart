@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/auth/auth_controller.dart';
+import 'package:sample/pages/auth/auth_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../widgets/main_app_bar.dart';
+import '../../widgets/main_app_bar.dart';
 
 class AuthPage extends GetView<AuthController> {
   @override

@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:sample/auth/auth_controller.dart';
-import 'package:sample/cards/cards_controller.dart';
 import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/service/repository/cards_repo.dart';
 import 'package:sample/service/repository/client_repo.dart';
 
-import '../profile/profile_contoller.dart';
+import '../pages/auth/auth_controller.dart';
+import '../pages/cards/cards_controller.dart';
+import '../pages/profile/profile_contoller.dart';
 import '../service/grpc/grpc_service.dart';
 
 class AppDependencies {

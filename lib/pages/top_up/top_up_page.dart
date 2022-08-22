@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/top_up/top_up_controller.dart';
+import 'package:sample/pages/top_up/top_up_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/big_text.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../widgets/main_app_bar.dart';
+import '../../widgets/main_app_bar.dart';
 
-class TopUpPage extends  GetView<TopUpController> {
-  double buttonsSize = Dimensions.width50/1.5;
+class TopUpPage extends GetView<TopUpController> {
+  final _buttonsSize = Dimensions.width50/1.5;
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +135,8 @@ class TopUpPage extends  GetView<TopUpController> {
             ),
             onPressed: onPressed,
             child:  Container(
-              height: this.buttonsSize,
-              width: this.buttonsSize,
+              height: _buttonsSize,
+              width: _buttonsSize,
               alignment: Alignment.center,
               child: icon,
               decoration: BoxDecoration(

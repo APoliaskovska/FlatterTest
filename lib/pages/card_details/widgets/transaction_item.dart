@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/constants/constants.dart';

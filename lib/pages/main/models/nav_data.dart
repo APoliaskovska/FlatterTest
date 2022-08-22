@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/cards/cards_controller.dart';
-import 'package:sample/cards/cards_page.dart';
-import 'package:sample/profile/profile_contoller.dart';
-import 'package:sample/profile/profile_page.dart';
 import 'package:sample/routes/routes.dart';
 import 'package:sample/service/repository/cards_repo.dart';
 import 'package:sample/service/repository/client_repo.dart';
-import 'package:sample/top_up/top_up_controller.dart';
-import 'package:sample/top_up/top_up_page.dart';
+
+import '../../cards/cards_controller.dart';
+import '../../cards/cards_page.dart';
+import '../../profile/profile_contoller.dart';
+import '../../profile/profile_page.dart';
+import '../../top_up/top_up_controller.dart';
+import '../../top_up/top_up_page.dart';
 
 abstract class NavKeys {
   static const int CARDS = 0;

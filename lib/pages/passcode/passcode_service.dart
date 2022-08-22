@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/passcode/passcode_controller.dart';
-import 'package:sample/passcode/passcode_page.dart';
+import 'package:sample/pages/passcode/passcode_controller.dart';
+import 'package:sample/pages/passcode/passcode_page.dart';
 import 'dart:async';
 
 import 'package:sample/service/auth_service.dart';

@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-import 'package:sample/main/main_controller.dart';
+
+import '../main_controller.dart';
 
 abstract class MainTabController extends GetxController {
   final int? navId = null;
@@ -11,7 +12,7 @@ abstract class MainTabController extends GetxController {
     final myNavIndex = rootController.getNavItemIndexByNavKey(navId ?? 0);
     ever(rootController.selectedNav, (int value) {
       print("selectedNav = " + value.toString());
-      if (myNavIndex != null && myNavIndex == value) {
+      if (myNavIndex == value) {
         _isTabOpen = true;
         onTabOpen();
       } else {

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/card_details/card_details_controller.dart';
-import 'package:sample/card_details/widgets/transaction_item.dart';
+import 'package:sample/pages/card_details/widgets/transaction_item.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
+import '../../widgets/main_app_bar.dart';
 import '../cards/widgets/card_body.dart';
-import '../widgets/main_app_bar.dart';
+import 'card_details_controller.dart';
 
 class CardDetailsPage extends  GetView<CardDetailsController> {
   @override

@@ -5,7 +5,7 @@ import '../../widgets/small_text.dart';
 
 class ErrorContainer extends StatelessWidget {
   final String? errorText;
-  VoidCallback onTap;
+  final VoidCallback onTap;
 
   ErrorContainer(this.errorText, this.onTap);
 

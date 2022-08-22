@@ -20,8 +20,8 @@ class PreloaderCircular extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: size ?? 64,
-        height: size ?? 64,
+        width: size,
+        height: size,
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(6),

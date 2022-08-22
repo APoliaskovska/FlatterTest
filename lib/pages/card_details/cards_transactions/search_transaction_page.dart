@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/card_details/cards_transactions/search_transaction_controller.dart';
-import 'package:sample/card_details/widgets/transaction_item.dart';
+import 'package:sample/pages/card_details/cards_transactions/search_transaction_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../../widgets/main_app_bar.dart';
+import '../../../widgets/main_app_bar.dart';
+import '../widgets/transaction_item.dart';
+
 
 class SearchTransactionPage extends  GetView<SearchTransactionController> {
   @override

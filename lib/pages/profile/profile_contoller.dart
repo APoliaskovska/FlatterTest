@@ -2,10 +2,11 @@ import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
-import 'package:sample/main/widgets/main_tabbar.dart';
 import 'package:sample/service/auth_service.dart';
 import 'package:sample/service/repository/client_repo.dart';
-import '../routes/routes.dart';
+
+import '../../routes/routes.dart';
+import '../main/widgets/main_tabbar.dart';
 
 class ProfileController extends MainTabController {
   static ProfileController get() => Get.find();

@@ -6,7 +6,7 @@ import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/utils/get_utils.dart';
 import 'package:grpc/grpc.dart';
 
-import '../routes/routes.dart';
+import '../../routes/routes.dart';
 
 class AuthController extends GetxController {
   static AuthController get() => Get.find();

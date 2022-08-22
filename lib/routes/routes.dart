@@ -1,25 +1,25 @@
 import 'package:get/get.dart';
-import 'package:sample/auth/auth_controller.dart';
-import 'package:sample/auth/auth_page.dart';
-import 'package:sample/card_details/card_details_controller.dart';
-import 'package:sample/card_details/cards_transactions/search_transaction_controller.dart';
-import 'package:sample/card_details/cards_transactions/search_transaction_page.dart';
-import 'package:sample/cards/cards_controller.dart';
-import 'package:sample/passcode/passcode_controller.dart';
-import 'package:sample/passcode/passcode_page.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import 'package:sample/splash/splash_controller.dart';
-import 'package:sample/card_details/card_details_page.dart';
-import 'package:sample/profile/profile_page.dart';
 import 'package:sample/splash/splash_screen.dart';
 import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/service/repository/cards_repo.dart';
-import 'package:sample/top_up/top_up_controller.dart';
-import 'package:sample/top_up/top_up_page.dart';
 
-import '../main/main_controller.dart';
-import '../main/main_page.dart';
-import '../profile/profile_contoller.dart';
+import '../pages/auth/auth_controller.dart';
+import '../pages/auth/auth_page.dart';
+import '../pages/card_details/card_details_controller.dart';
+import '../pages/card_details/card_details_page.dart';
+import '../pages/card_details/cards_transactions/search_transaction_controller.dart';
+import '../pages/card_details/cards_transactions/search_transaction_page.dart';
+import '../pages/cards/cards_controller.dart';
+import '../pages/main/main_controller.dart';
+import '../pages/main/main_page.dart';
+import '../pages/passcode/passcode_controller.dart';
+import '../pages/passcode/passcode_page.dart';
+import '../pages/profile/profile_contoller.dart';
+import '../pages/profile/profile_page.dart';
+import '../pages/top_up/top_up_controller.dart';
+import '../pages/top_up/top_up_page.dart';
 import '../service/grpc/grpc_service.dart';
 
 abstract class Routes {

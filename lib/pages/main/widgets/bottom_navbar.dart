@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/main/main_controller.dart';
 import 'package:sample/utils/dimensions.dart';
+
+import '../main_controller.dart';
 
 class BottomNavBar extends GetView<MainController> {
   @override
