@@ -39,7 +39,6 @@ class PasscodeService extends GetxService {
     }
 
     _isPasscodeShow = true;
-
     await Navigator.of(_passcodeContext!).push(_passcodeRoute!);
   }
 

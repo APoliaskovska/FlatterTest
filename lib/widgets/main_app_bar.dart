@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
 import 'package:sample/widgets/small_text.dart';
-
-import '../auth/auth_controller.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override

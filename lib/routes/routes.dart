@@ -14,6 +14,8 @@ import 'package:sample/profile/profile_page.dart';
 import 'package:sample/splash/splash_screen.dart';
 import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/service/repository/cards_repo.dart';
+import 'package:sample/top_up/top_up_controller.dart';
+import 'package:sample/top_up/top_up_page.dart';
 
 import '../main/main_controller.dart';
 import '../main/main_page.dart';
@@ -28,8 +30,11 @@ abstract class Routes {
 
   static const MAIN = '/';
   static const PROFILE = '/profile';
+  static const TOP_UP = '/top_up';
   static const CARDS = '/cards';
+
   static const CARDS_DETAILS = '/cards_details';
+
   static const SEARCH_TRANSACTION = '/search_transaction';
 }
 
@@ -99,6 +104,14 @@ abstract class AppPages {
       transition: Transition.circularReveal,
       binding: BindingsBuilder.put(() {
         return PasscodeController();
+      }),
+    ),
+    GetPage(
+      name: Routes.TOP_UP,
+      page: () => TopUpPage(),
+      transition: Transition.circularReveal,
+      binding: BindingsBuilder.put(() {
+        return TopUpController();
       }),
     )
   ];

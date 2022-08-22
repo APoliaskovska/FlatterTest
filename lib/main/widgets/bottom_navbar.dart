@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
 import 'package:sample/main/main_controller.dart';
+import 'package:sample/utils/dimensions.dart';
 
 class BottomNavBar extends GetView<MainController> {
   @override
@@ -13,7 +14,7 @@ class BottomNavBar extends GetView<MainController> {
           () => BottomNavigationBar(
         items: items,
         elevation: 8,
-        iconSize: 18,
+        iconSize: Dimensions.iconSize16*2,
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: false,
         showUnselectedLabels: false,
