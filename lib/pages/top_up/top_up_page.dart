@@ -16,12 +16,14 @@ class TopUpPage extends GetView<TopUpController> {
 
     return Scaffold(
       appBar: MainAppBar(
+        showMenuIcon: true,
         titleText: "Top Up",
         showAccountIcon: false,
         rightItem: infoWidget(),
       ),
       body: SingleChildScrollView(
         child: Container(
+          color: AppColors.mainBackgroundColor,
           margin: EdgeInsets.only(top: Dimensions.widthPadding10*2),
           padding: EdgeInsets.only(
               top: Dimensions.widthPadding10,

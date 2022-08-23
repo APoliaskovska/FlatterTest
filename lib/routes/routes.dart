@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:sample/pages/menu/menu_controller.dart';
+import 'package:sample/pages/menu/menu_page.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import 'package:sample/splash/splash_controller.dart';
 import 'package:sample/splash/splash_screen.dart';
@@ -29,6 +31,7 @@ abstract class Routes {
   static const PASSCODE = '/passcode';
 
   static const MAIN = '/';
+  static const MENU = '/menu';
   static const PROFILE = '/profile';
   static const TOP_UP = '/top_up';
   static const CARDS = '/cards';
@@ -113,6 +116,14 @@ abstract class AppPages {
       binding: BindingsBuilder.put(() {
         return TopUpController();
       }),
+    ),
+    GetPage(
+      name: Routes.MENU,
+      page: () => MenuPage(),
+      transition: Transition.circularReveal,
+      binding: BindingsBuilder.put(() {
+        return MenuController();
+      })
     )
   ];
 }

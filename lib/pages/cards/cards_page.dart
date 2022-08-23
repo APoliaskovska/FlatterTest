@@ -1,3 +1,4 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
@@ -15,12 +16,15 @@ class CardsPage extends GetView<CardsController> {
   //view page height
   final double _height = Dimensions.screenWidth/1.88;
 
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(
-          titleText: "Cards",
-          showAccountIcon: true
+      appBar: MainAppBar(
+        titleText: "Cards",
+        showAccountIcon: true,
+        showMenuIcon: true,
       ),
       backgroundColor: AppColors.mainBackgroundColor,
       body: RefreshIndicator(
@@ -32,30 +36,50 @@ class CardsPage extends GetView<CardsController> {
         child: SingleChildScrollView(
           padding: EdgeInsets.only(top: Dimensions.heightPadding10),
           child: Obx(() {
+
+            PageView pageView = PageView.builder(
+              controller: controller.pageController,
+              physics: const BouncingScrollPhysics(),
+              itemCount: controller.cardsList.length,
+              itemBuilder: (context, position) {
+                return _buildPageItem(position);
+              },
+              onPageChanged: (index){
+                _currentIndex = index;
+              },
+            );
+
             return Column(
               children: [
                 SizedBox(
                     height: _height,
                     child:  controller.isLoading ? Center(child: CircularProgressIndicator(color: AppColors.primaryColor,))
-                        : controller.isLoaded ? PageView.builder(
-                      controller: controller.pageController,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: controller.cardsList.length,
-                      itemBuilder: (context, position) {
-                        return _buildPageItem(position);
-                        },
-                    ) : controller.isLoaded == false && controller.isLoading == false ? ErrorContainer("Error loading cards...\nTry again later", () {
+                        : controller.isLoaded ? pageView : controller.isLoaded == false && controller.isLoading == false ? ErrorContainer("Error loading cards...\nTry again later", () {
                       controller.reloadData();
-                    }) : PageView.builder(
-                      controller: controller.pageController,
-                      physics: const BouncingScrollPhysics(),
-                      itemCount: controller.cardsList.length,
-                      itemBuilder: (context, position) {
-                        return _buildPageItem(position);
-                      },
-                    )
+                    }) : pageView
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(height: 8,),
+
+                //CARDS DOTS INDICATOR
+
+                controller.isLoaded && controller.cardsList.length > 0 ? DotsIndicator(
+                  position: controller.currPageValue.toDouble(),
+                  dotsCount: controller.cardsList.length,
+                  decorator: DotsDecorator(
+                      size: const Size.square(9.0),
+                      activeSize: const Size(18.0, 9.0),
+                      activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                      color: AppColors.lightGrayColor,
+                      activeColor: AppColors.primaryColor
+                  ),
+                  onTap: (tapIndex){
+                    _currentIndex = tapIndex.toInt();
+                    controller.pageController.animateToPage(tapIndex.toInt(), duration: Duration(milliseconds: 300), curve: Curves.linear);
+                  },
+
+                )
+                    : SizedBox(height: 0),
+                SizedBox(height: 20),
                 // ***** Add Menu Items *****
                 Column(
                     children: [

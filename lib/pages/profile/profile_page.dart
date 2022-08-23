@@ -16,6 +16,7 @@ class ProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: MainAppBar(
+            showMenuIcon: true,
             titleText: "Profile",
             rightItem:
             LogoutWidget(onPressed: () {

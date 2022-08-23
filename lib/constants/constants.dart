@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors{
-  static const Color mainBackgroundColor = Color(0xFFFFFFFF);
-  static const Color primaryColor = Color(0xff48e5c2);
+  static const Color mainBackgroundColor = Color.fromARGB(255, 254, 255, 255);
+  static const Color primaryColor = Color.fromRGBO(65, 204, 183, 1);
   static const Color secondaryColor = Color(0xfff3d3bd);
   static const Color mainBlackColor = Color(0xFF332d2b);
   static const Color lightGrayColor = Color(0xFF5E5E5E);
@@ -12,7 +12,18 @@ class AppColors{
   static const Color darkBlueColor = Color(0x000066FF);
 
   //views
-  static const Color shadowColor = Color(0x665E5E5E);
+  static const Color shadowColor = Color.fromRGBO(187, 183, 208, 1);
+  static const Color navBgColor = Color.fromARGB(255, 76, 69, 175);
+  static const Color navTextColor = Color.fromARGB(255, 255, 255, 255);
+  static const Color tabBarUnselectedColor = Color.fromRGBO(175, 187, 199, 1);
+  static const Color tabBarSelectedColor = Color.fromRGBO(65, 204, 183, 1);
+  static const Color menuBgColor = Color.fromARGB(100, 76, 69, 175);
+
+  //text
+  static const Color secondaryTextColor = Color.fromRGBO(111, 105, 179, 1);
+  static const Color mainTextColor = Color.fromRGBO(112, 116, 108, 1);
+//rgb(175,187,199)
+
 }
 
 class AppResponseStrings {

@@ -25,7 +25,7 @@ class SplashController extends GetxController {
     }
     return await AuthService().getToken().then((token) {
       if (token != null && token.isNotEmpty) {
-        return Routes.MAIN;
+        return Routes.MENU;
       } else {
         return Routes.LOGIN;
       }

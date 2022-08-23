@@ -11,7 +11,7 @@ class AuthPage extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(
+      appBar: MainAppBar(
           titleText: "Auth",
           showAccountIcon: false
       ),
@@ -19,6 +19,7 @@ class AuthPage extends GetView<AuthController> {
         var _isValid = controller.isValidLogin && controller.isValidPassword;
         return Center(
           child: Container(
+            color: AppColors.mainBackgroundColor,
             alignment: Alignment.center,
             padding: EdgeInsets.all(Dimensions.widthPadding15*2),
             child: AbsorbPointer(

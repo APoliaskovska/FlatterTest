@@ -40,12 +40,14 @@ class SmallText extends StatelessWidget {
    return Text(
      text!,
      textAlign: textAlign,
+     //textScaleFactor: 0.8,
      style: TextStyle(fontFamily: 'Roboto',
        color: color,
        fontSize: size == 0 ? 14 : size,
        height: height,
        overflow: TextOverflow.ellipsis,
        fontWeight: fontType!.weight(),
+
       ),
     );
   }

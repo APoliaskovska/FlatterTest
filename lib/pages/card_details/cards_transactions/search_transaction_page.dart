@@ -12,7 +12,7 @@ class SearchTransactionPage extends  GetView<SearchTransactionController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MainAppBar(
+      appBar: MainAppBar(
         titleText: "Search Transaction",
         showAccountIcon: false,
       ),

@@ -67,7 +67,7 @@ class AuthController extends GetxController {
         AppUtils.showError("User not found...");
       } else {
         saveToken(user.token);
-        Get.offAllNamed(Routes.MAIN);
+        Get.offAllNamed(Routes.MENU);
       }
     } on GrpcError catch(e) {
       _inProgress(false);

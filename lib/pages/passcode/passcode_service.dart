@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:sample/pages/passcode/passcode_controller.dart';
 import 'package:sample/pages/passcode/passcode_page.dart';
 import 'dart:async';
@@ -27,10 +28,11 @@ class PasscodeService extends GetxService {
     }
 
     _passcodeContext = Get.context;
-    _passcodeRoute  = PageRouteBuilder(opaque: false, pageBuilder: (BuildContext context, _, __) {
+    _passcodeRoute  = PageRouteBuilder(opaque: false, pageBuilder: (BuildContext context, _, a) {
       Get.lazyPut(() => PasscodeController());
       return PasscodePage();
       },
+      transitionDuration: Duration(milliseconds: 300)
     );
 
     if (_passcodeContext == null) {
