@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/pages/main/main_controller.dart';
-import 'package:sample/pages/main/main_page.dart';
 import 'package:sample/pages/menu/menu_controller.dart';
-import 'package:sample/pages/menu/menu_page.dart';
-import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 import 'package:get/get.dart';
 

@@ -35,6 +35,7 @@ abstract class Routes {
   static const PROFILE = '/profile';
   static const TOP_UP = '/top_up';
   static const CARDS = '/cards';
+  static const UPLOAD = '/upload';
 
   static const CARDS_DETAILS = '/cards_details';
 

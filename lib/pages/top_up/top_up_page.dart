@@ -94,17 +94,20 @@ class TopUpPage extends GetView<TopUpController> {
 
               //TOP UP ACCOUNT
 
-              ElevatedButton(
-                style:  ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+              Padding(
+                padding: EdgeInsets.all(Dimensions.heightPadding10),
+                child: ElevatedButton(
+                  style:  ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    elevation: 15.0,
+                    fixedSize: Size(Dimensions.screenWidth*.7, 40)
                   ),
-                  elevation: 15.0,
-                  fixedSize: Size(Dimensions.screenWidth*.7, 40)
+                    onPressed: (){},
+                    child: SmallText(text: "Top Up This Account", color: Colors.white)
                 ),
-                  onPressed: (){},
-                  child: SmallText(text: "Top Up This Account", color: Colors.white)
               ),
               SizedBox(height: Dimensions.height10),
 

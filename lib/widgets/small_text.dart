@@ -25,6 +25,8 @@ class SmallText extends StatelessWidget {
   final double? height;
   final FontType? fontType;
   final TextAlign? textAlign;
+  final int? lineCount;
+  final TextOverflow? overflow;
 
   const SmallText({ Key? key,
     this.color = AppColors.mainBlackColor,
@@ -32,23 +34,46 @@ class SmallText extends StatelessWidget {
     this.size = 0,
     this.height = 1.2,
     this.fontType = FontType.regular,
-    this.textAlign = TextAlign.left
+    this.textAlign = TextAlign.left,
+    this.lineCount = 1,
+    this.overflow = TextOverflow.clip
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   return Text(
-     text!,
-     textAlign: textAlign,
-     //textScaleFactor: 0.8,
-     style: TextStyle(fontFamily: 'Roboto',
-       color: color,
-       fontSize: size == 0 ? 14 : size,
-       height: height,
-       overflow: TextOverflow.ellipsis,
-       fontWeight: fontType!.weight(),
-
+    return Text(
+      text!,
+      textAlign: textAlign,
+      maxLines: this.lineCount != null ? this.lineCount : 1,
+      //textScaleFactor: 0.8,
+      softWrap: false,
+      textDirection: TextDirection.rtl,
+      style: TextStyle(fontFamily: 'Roboto',
+        color: color,
+        fontSize: size == 0 ? 14 : size,
+        height: height,
+        overflow: overflow,
+        fontWeight: fontType!.weight(),
       ),
     );
+
+   // return Flexible(
+   //   child: Text(
+   //     text!,
+   //     overflow: overflow != null ? overflow : TextOverflow.clip,
+   //     textAlign: textAlign,
+   //     maxLines: this.lineCount != null ? this.lineCount : 1,
+   //     //textScaleFactor: 0.8,
+   //     softWrap: false,
+   //     textDirection: TextDirection.rtl,
+   //     style: TextStyle(fontFamily: 'Roboto',
+   //       color: color,
+   //       fontSize: size == 0 ? 14 : size,
+   //       height: height,
+   //       overflow: TextOverflow.ellipsis,
+   //       fontWeight: fontType!.weight(),
+   //      ),
+   //    ),
+   // );
   }
 }

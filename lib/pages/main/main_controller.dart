@@ -98,6 +98,7 @@ class MainController extends GetxController with WidgetsBindingObserver {
       await _showPasscode();
     } else  if (state == AppLifecycleState.paused) {
       AuthService().isPasscodePass = false;
+      AuthService().setBackgroundTime(DateTime.now());
     }
   }
 

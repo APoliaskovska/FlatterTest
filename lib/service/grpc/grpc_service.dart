@@ -1,9 +1,13 @@
+import 'dart:ffi';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
 import 'package:build_grpc_channel/build_grpc_channel.dart';
 
-const host = 'http://127.0.0.1';// 'http://172.20.10.5'; for android build
+//const host = 'http://127.0.0.1';// for iOS
+const host = 'http://172.20.10.5'; // for Android build
 
 int get port => kIsWeb ? 8888 : 5555;
 
@@ -37,5 +41,25 @@ class MainService extends GetxService {
 
   Future<dynamic> getTransactions(int cardId) async {
     return await stub.getTransactionsList(TransactionsListRequest(cardId: cardId));
+  }
+
+  //UPLOAD
+
+  Future<dynamic> uploadDocs(List<PlatformFile> docs) async {
+    dynamic error;
+    bool success = true;
+    for (PlatformFile doc in docs) {
+       FileUploadChunkRequest request = FileUploadChunkRequest(
+         uuid: UniqueKey().toString(),
+         name: DateTime.now().toString() + doc.name,
+         type: doc.extension
+       );
+       await stub.uploadFileChunk(request).then((p0) => null, onError: (e){
+         error = e;
+         success = false;
+       });
+     }
+    print("Upload doc result = " + success.toString() + " error = " + error.toString());
+    return success ? true : error;
   }
 }

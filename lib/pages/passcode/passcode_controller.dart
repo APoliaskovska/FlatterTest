@@ -48,7 +48,6 @@ class PasscodeController extends GetxController with StateMixin {
   Future<void> onReady() async {
     super.onReady();
 
-    await Future.delayed(const Duration(seconds: 1));
     if (isPasscodeExist == true) {
       await checkBiometrics();
     }

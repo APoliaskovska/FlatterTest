@@ -22,37 +22,84 @@ class MenuPage extends GetView<MenuController> {
   }
 
   Widget menu(context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Container(
-        padding: EdgeInsets.all(Dimensions.widthPadding15),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ClipOval(
-              child: SizedBox.fromSize(
-                  size: Size.fromRadius(Dimensions.width50), // Image radius
-                  child: Image.asset("assets/images/avatar-placeholder.jpg")
-              ),
-            ),
-            SizedBox(height: Dimensions.height20),
-            SmallText(text: "Dashboard", color: Colors.white),
-            SizedBox(height: Dimensions.height10),
-            SmallText(text:"Messages",
-                color: Colors.white),
-            SizedBox(height: Dimensions.height10),
-            SmallText(text:"Utility Bills",
-                color: Colors.white),
-            SizedBox(height: Dimensions.height10),
-            SmallText(text:"Funds Transfer",
-                color: Colors.white),
-            SizedBox(height: Dimensions.height10),
-            SmallText(text:"Settings", color: Colors.white),
-          ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: EdgeInsets.only(
+              left: Dimensions.widthPadding10*2,
+              top: Dimensions.widthPadding10*5
+          ),
+          alignment: Alignment.centerLeft,
+          child: SmallText(
+            text: "Version 1.0.0",
+            color: Colors.white,
+          ),
         ),
-      ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Container(
+            padding: EdgeInsets.all(Dimensions.widthPadding10*2),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                
+                // PROFILE PHOTO
+                Stack(
+                  children: [
+                    ClipOval(
+                      child: SizedBox.fromSize(
+                          size: Size.fromRadius(Dimensions.width50 / 1.5), // Image radius
+                          child: Image.asset("assets/images/avatar-placeholder.jpg")
+                      ),
+                    ),
+
+                    //STATUS
+
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        shape: BoxShape.circle
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: Dimensions.height20),
+                _menuItem("Dashboard", Icons.dashboard),
+                SizedBox(height: Dimensions.height10),
+                _menuItem("Messages", Icons.message),
+                SizedBox(height: Dimensions.height10),
+                _menuItem("Utility Bills", Icons.document_scanner_outlined),
+                SizedBox(height: Dimensions.height10),
+                _menuItem("Funds Transfer", Icons.currency_exchange),
+                SizedBox(height: Dimensions.height10),
+                _menuItem("Settings", Icons.settings),
+              ],
+            ),
+          ),
+        ),
+        Container(
+            padding: EdgeInsets.only(
+                left: Dimensions.widthPadding10*2,
+                bottom: Dimensions.widthPadding10*5
+            ),
+            alignment: Alignment.centerLeft,
+            child:
+            InkWell(
+              child: SmallText(
+                text: "Log out",
+                color: AppColors.primaryColor,
+              ),
+              onTap: () {
+                print("Log out!");
+              },
+            )
+        )
+      ],
     );
   }
 
@@ -82,6 +129,21 @@ class MenuPage extends GetView<MenuController> {
         ),
       );
     });
+  }
+
+  Widget _menuItem(String text, IconData icon) {
+    return Container(
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white),
+          SizedBox(width: 10),
+          SmallText(
+              text: text,
+              color: Colors.white
+          ),
+        ],
+      ),
+    );
   }
 
 }

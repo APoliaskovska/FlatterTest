@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:sample/pages/passcode/passcode_controller.dart';
 import 'package:sample/pages/passcode/passcode_page.dart';
 import 'dart:async';
@@ -9,6 +8,8 @@ import 'package:sample/service/auth_service.dart';
 
 class PasscodeService extends GetxService {
   static final PasscodeService _instance = new PasscodeService._internal();
+  static const int passcodeMinutes = 2;
+
   PageRouteBuilder? _passcodeRoute;
   BuildContext? _passcodeContext;
 
@@ -24,6 +25,18 @@ class PasscodeService extends GetxService {
     if (AuthService().isPasscodePass == true) { return; }
     if (_isPasscodeShow == true) {
       print("_isPasscodeShow == true");
+      return;
+    }
+
+    //      AuthService().isPasscodePass = false;
+
+    DateTime bData = await AuthService().getBackgroundTime();
+
+    final dateNow = DateTime.now();
+    final difference = dateNow.difference(bData).inMinutes;
+
+    if (difference < passcodeMinutes) {
+      AuthService().isPasscodePass = true;
       return;
     }
 

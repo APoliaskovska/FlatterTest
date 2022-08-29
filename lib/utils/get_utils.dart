@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sample/constants/constants.dart';
 import 'package:sample/widgets/preloader.dart';
 
 class AppUtils {
@@ -22,6 +23,15 @@ class AppUtils {
     if (!Get.isSnackbarOpen) {
       Get.back();
     }
+  }
+
+  static void showSuccess(String title, String text) {
+    Get.snackbar(
+      title,
+      text,
+      colorText: Colors.white,
+      backgroundColor: AppColors.primaryColor,
+    );
   }
 
   static void showError(String errors, {

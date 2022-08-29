@@ -10,6 +10,7 @@ class _SecItem {
 abstract class AuthServicesKeys {
   static const TOKEN = 'token';
   static const PASSCODE = 'passcode';
+  static const BACKGROUND_TIME = 'background_time';
 }
 
 class AuthService extends GetxService  {
@@ -47,6 +48,15 @@ class AuthService extends GetxService  {
     bool valid = await _readSecureItem(AuthServicesKeys.PASSCODE) == passcode;
     this.isPasscodePass = valid;
     return valid;
+  }
+
+  Future<void> setBackgroundTime(DateTime dateTime) async {
+    _addNewItem(AuthServicesKeys.BACKGROUND_TIME, dateTime.toIso8601String());
+  }
+
+  Future<DateTime> getBackgroundTime() async {
+    String dateString = await _readSecureItem(AuthServicesKeys.BACKGROUND_TIME);
+    return DateTime.parse(dateString);
   }
 
   Future<String?> getToken() async {
