@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sample/pages/files/files_controller.dart';
+import 'package:sample/pages/files/files_page.dart';
 import 'package:sample/pages/upload/upload_controller.dart';
 import 'package:sample/pages/upload/upload_page.dart';
 import 'package:sample/routes/routes.dart';
@@ -18,7 +20,8 @@ abstract class NavKeys {
   static const int CARDS = 0;
   static const int TOP_UP = 1;
   static const int UPLOAD = 2;
-  static const int PROFILE = 3;
+  static const int FILES = 3;
+  static const int PROFILE = 4;
 }
 
 class NavItem {
@@ -89,6 +92,23 @@ class NavData {
           binding: BindingsBuilder.put(() {
             Get.lazyPut(() => UploadRepo());
             return UploadController(uploadRepo: Get.find());
+          }
+          ),
+        ),
+      ),
+    ),
+    NavItemData(
+      name: 'files',
+      route: Routes.FILES,
+      icon: Icons.dataset_outlined,
+      navItem: NavItem(
+        navKey: NavKeys.FILES,
+        getPage: GetPage(
+          name: Routes.FILES,
+          page: () => FilesPage(),
+          binding: BindingsBuilder.put(() {
+            Get.lazyPut(() => UploadRepo());
+            return FilesController(uploadRepo: Get.find());
           }
           ),
         ),

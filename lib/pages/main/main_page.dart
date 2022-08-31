@@ -8,14 +8,14 @@ class MainPage extends GetView<MainController> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: controller.canPop,
+      onWillPop: controller.canPop, 
       child: Scaffold(
-        body: Obx(
-              () => IndexedStack(
+        body: Obx(() {
+          return IndexedStack(
             index: controller.selectedNav(),
             children: controller.getPages(),
-          ),
-        ),
+          );
+          },),
         bottomNavigationBar: BottomNavBar(),
       ),
     );

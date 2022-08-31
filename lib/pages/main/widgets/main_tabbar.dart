@@ -23,6 +23,11 @@ abstract class MainTabController extends GetxController {
       }
     });
   }
+
+  void switchToPage(int page) {
+
+  }
+
   void onTabOpen() {}
   void onTabClose() {}
 }

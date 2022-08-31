@@ -47,6 +47,10 @@ class MainController extends GetxController with WidgetsBindingObserver {
     return _pages;
   }
 
+  void switchToFilesPage(){
+
+  }
+
   Future<void> onTapNav(int idx) async {
     /// only for VENTA we make a special case...
     final model = menuData[idx];

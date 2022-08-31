@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
+import 'package:sample/pages/files/files_controller.dart';
+import 'package:sample/pages/files/files_page.dart';
 import 'package:sample/pages/menu/menu_controller.dart';
 import 'package:sample/pages/menu/menu_page.dart';
 import 'package:sample/service/repository/client_repo.dart';
+import 'package:sample/service/repository/upload_repo.dart';
 import 'package:sample/splash/splash_controller.dart';
 import 'package:sample/splash/splash_screen.dart';
 import 'package:sample/service/repository/auth_repo.dart';
@@ -36,6 +39,7 @@ abstract class Routes {
   static const TOP_UP = '/top_up';
   static const CARDS = '/cards';
   static const UPLOAD = '/upload';
+  static const FILES = '/files';
 
   static const CARDS_DETAILS = '/cards_details';
 
@@ -125,6 +129,15 @@ abstract class AppPages {
       binding: BindingsBuilder.put(() {
         return MenuController();
       })
+    ),
+    GetPage(
+        name: Routes.FILES,
+        page: () => FilesPage(),
+        transition: Transition.circularReveal,
+        binding: BindingsBuilder.put(() {
+          Get.lazyPut(() => UploadRepo());
+          return FilesController(uploadRepo: Get.find());
+        })
     )
   ];
 }

@@ -21,109 +21,118 @@ class TopUpPage extends GetView<TopUpController> {
         showAccountIcon: false,
         rightItem: infoWidget(),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          color: AppColors.mainBackgroundColor,
-          margin: EdgeInsets.only(top: Dimensions.widthPadding10*2),
-          padding: EdgeInsets.only(
-              top: Dimensions.widthPadding10,
-              bottom: Dimensions.widthPadding10,
-              left: Dimensions.widthPadding10,
-              right: Dimensions.widthPadding10
-          ),
-          child: Column(
-            children: [
-              //TOP VIEW
-              Container(
-                width: Dimensions.screenWidth,
-                height: Dimensions.screenWidth/2,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    accessoryButton("Top up",
-                        Icon(Icons.add, color: Colors.black), () {
-                    }),
-                    Expanded(
-                      //width: double.infinity,
-                      flex: 1,
-                      child: Container(
-                        padding: EdgeInsets.all(Dimensions.widthPadding10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            style: BorderStyle.solid,
-                              color: AppColors.primaryColor
+      body: Stack(
+        clipBehavior: Clip.hardEdge,
+        children: [
+          Positioned(
+            top: 0,
+            child: SingleChildScrollView(
+            child: Container(
+              width: Dimensions.screenWidth,
+              color: AppColors.mainBackgroundColor,
+              margin: EdgeInsets.only(top: Dimensions.widthPadding10*2),
+              padding: EdgeInsets.only(
+                  top: Dimensions.widthPadding10,
+                  bottom: Dimensions.widthPadding10,
+                  left: Dimensions.widthPadding10,
+                  right: Dimensions.widthPadding10
+              ),
+              child: Column(
+                children: [
+                  //TOP VIEW
+                  Container(
+                    width: Dimensions.screenWidth,
+                    height: Dimensions.screenWidth/2,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        accessoryButton("Top up",
+                            Icon(Icons.add, color: Colors.black), () {
+                            }),
+                        Expanded(
+                          //width: double.infinity,
+                          flex: 1,
+                          child: Container(
+                            padding: EdgeInsets.all(Dimensions.widthPadding10),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    style: BorderStyle.solid,
+                                    color: AppColors.primaryColor
+                                ),
+                                shape: BoxShape.circle,
+                                color: Colors.white
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.account_balance_wallet),
+                                SmallText(text: "Total available"),
+                                SizedBox(height: Dimensions.height10/2),
+                                BigText(text: "0.00"),
+                                SmallText(text: "CHF")
+                              ],
+                            ),
                           ),
-                            shape: BoxShape.circle,
-                            color: Colors.white
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.account_balance_wallet),
-                            SmallText(text: "Total available"),
-                            SizedBox(height: Dimensions.height10/2),
-                            BigText(text: "0.00"),
-                            SmallText(text: "CHF")
-                          ],
-                        ),
-                      ),
+                        accessoryButton("Exchange", Icon(Icons.currency_exchange,
+                          color: Colors.black,), () {
+                        }),
+                      ],
                     ),
-                    accessoryButton("Exchange", Icon(Icons.currency_exchange,
-                      color: Colors.black,), () {
-                    }),
-                  ],
-                ),
-              ),
-              SizedBox(height: Dimensions.height10),
-
-              //SHOW INACTIVE ACCOUNT
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SmallText(text: "  Show inactive account"),
-                  Switch(
-                      activeColor: AppColors.primaryColor,
-                      value: true,
-                      onChanged: (value){
-
-                      })
-                ],
-              ),
-              SizedBox(height: Dimensions.height10),
-
-              //TOP UP ACCOUNT
-
-              Padding(
-                padding: EdgeInsets.all(Dimensions.heightPadding10),
-                child: ElevatedButton(
-                  style:  ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    elevation: 15.0,
-                    fixedSize: Size(Dimensions.screenWidth*.7, 40)
                   ),
-                    onPressed: (){},
-                    child: SmallText(text: "Top Up This Account", color: Colors.white)
-                ),
-              ),
-              SizedBox(height: Dimensions.height10),
+                  SizedBox(height: Dimensions.height10),
 
-              //ACCOUNT ORDERS
+                  //SHOW INACTIVE ACCOUNT
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SmallText(text: "  Show inactive account"),
+                      Switch(
+                          activeColor: AppColors.primaryColor,
+                          value: true,
+                          onChanged: (value){
 
-              Column(
-                children: [
-                  itemWidget("EUR", "0.00", Colors.red),
-                  itemWidget("CHF", "0.00", Colors.blue),
-                  itemWidget("UAH", "0.00", Colors.yellow)
+                          })
+                    ],
+                  ),
+                  SizedBox(height: Dimensions.height10),
+
+                  //TOP UP ACCOUNT
+
+                  Padding(
+                    padding: EdgeInsets.all(Dimensions.heightPadding10),
+                    child: ElevatedButton(
+                        style:  ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            elevation: 15.0,
+                            fixedSize: Size(Dimensions.screenWidth*.7, 40)
+                        ),
+                        onPressed: (){},
+                        child: SmallText(text: "Top Up This Account", color: Colors.white)
+                    ),
+                  ),
+                  SizedBox(height: Dimensions.height10),
+
+                  //ACCOUNT ORDERS
+
+                  Column(
+                    children: [
+                      itemWidget("EUR", "0.00", Colors.red),
+                      itemWidget("CHF", "0.00", Colors.blue),
+                      itemWidget("UAH", "0.00", Colors.yellow)
+                    ],
+                  )
+
                 ],
-              )
-              
-            ],
-          ),
+              ),
+            ),
         ),
+          )
+        ],
       ),
     );
   }

@@ -11,9 +11,11 @@ class CardDetailsController extends GetxController with StateMixin {
 
   final _card = PaymentCard().obs;
   final List<Transaction> _transactions = [];
+  final _displayFront = true.obs;
 
   PaymentCard get paymentCard => _card();
   List<Transaction> get transactions => _transactions;
+  bool get displayFront => _displayFront();
 
   CardDetailsController({required this.cardsRepo});
 
@@ -44,5 +46,9 @@ class CardDetailsController extends GetxController with StateMixin {
 
   void openSearch(){
     Get.toNamed(Routes.SEARCH_TRANSACTION, arguments: transactions);
+  }
+
+  void didTapCard() {
+    _displayFront(!displayFront);
   }
 }

@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/routes/routes.dart';
+import 'package:sample/service/firebase/firebase_service.dart';
 
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
@@ -11,8 +11,10 @@ Future<void> main() async {
 
   //Firebase
 
+  print("START FirebaseService");
+
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await FirebaseService().start();
   // Pass all uncaught errors from the framework to Crashlytics.
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
 
