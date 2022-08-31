@@ -8,8 +8,11 @@ import 'package:sample/widgets/small_text.dart';
 import '../../routes/routes.dart';
 
 class MenuPage extends GetView<MenuController> {
+  late GlobalObjectKey _navigatorKey;
+
   @override
   Widget build(BuildContext context) {
+    _navigatorKey = GlobalObjectKey<NavigatorState>(context);
     return Scaffold(
       backgroundColor: AppColors.menuBgColor,
       body: Stack(
@@ -105,7 +108,6 @@ class MenuPage extends GetView<MenuController> {
 
   Widget main(context) {
     return Obx(() {
-      final navigatorKey = GlobalObjectKey<NavigatorState>(context);
       return AnimatedPositioned(
         duration: controller.duration,
         top: controller.isCollapsed ? 0 : 0.1 * Dimensions.screenWidth,
@@ -119,7 +121,7 @@ class MenuPage extends GetView<MenuController> {
             elevation: 8,
             borderRadius: BorderRadius.all(Radius.circular(controller.isCollapsed ? 0 : Dimensions.radius20)),
             child: Navigator(
-              key: navigatorKey,
+              key: _navigatorKey,
               pages: [
                 AppPages.routes.firstWhere((element) =>
                 element.name == Routes.MAIN)

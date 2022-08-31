@@ -13,7 +13,10 @@ class FilesPage extends GetView<FilesController> {
 
   @override
   Widget build(BuildContext context) {
-    print("width = " + Dimensions.screenWidth.toString());
+    final double navigationBarHeight = MediaQuery.of(context).padding.bottom;
+    final double tabBarHeight = MediaQuery.of(context).padding.top;
+
+
     return Scaffold(
       appBar: MainAppBar(
         titleText: "Files",
@@ -25,10 +28,9 @@ class FilesPage extends GetView<FilesController> {
         children: [
           Positioned(
             top: 0,
-            child: Container(
-              height: Dimensions.screenWidth,
-              width: Dimensions.screenWidth,
-              child: GridView(
+            bottom: 0,
+            width: Dimensions.screenWidth,
+            child: GridView(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
               //  crossAxisCount: 2,
               children: <Widget>[
@@ -39,8 +41,21 @@ class FilesPage extends GetView<FilesController> {
                 folderWidget("Business Data"),
                 folderWidget("Members"),
 
+                folderWidget("Customers"),
+                folderWidget("Bank accounts"),
+                folderWidget("Ensures Data"),
+                folderWidget("Customers"),
+                folderWidget("Business Data"),
+                folderWidget("Members"),
+
+                folderWidget("Customers"),
+                folderWidget("Bank accounts"),
+                folderWidget("Ensures Data"),
+                folderWidget("Customers"),
+                folderWidget("Business Data"),
+                folderWidget("Members"),
+
               ],
-            )
             ),
           )
         ],

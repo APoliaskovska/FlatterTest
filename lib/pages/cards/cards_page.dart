@@ -27,101 +27,110 @@ class CardsPage extends GetView<CardsController> {
         showMenuIcon: true,
       ),
       backgroundColor: AppColors.mainBackgroundColor,
-      body: RefreshIndicator(
-        color: AppColors.primaryColor,
-        onRefresh: () async {
-          await Future.delayed(const Duration(seconds: 2));
-          await controller.reloadData();
-        },
-        child: SingleChildScrollView(
-          padding: EdgeInsets.only(top: Dimensions.heightPadding10),
-          child: Obx(() {
+      body: Stack(
+        clipBehavior: Clip.antiAlias,
+        children: [
+          Positioned(
+            top: 0,
+            bottom: 0,
+            width: Dimensions.screenWidth,
+            child: RefreshIndicator(
+            color: AppColors.primaryColor,
+            onRefresh: () async {
+              await Future.delayed(const Duration(seconds: 2));
+              await controller.reloadData();
+            },
+            child: SingleChildScrollView(
+                padding: EdgeInsets.only(top: Dimensions.heightPadding10),
+                child: Obx(() {
+                  PageView pageView = PageView.builder(
+                    controller: controller.pageController,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: controller.cardsList.length,
+                    itemBuilder: (context, position) {
+                      return _buildPageItem(position);
+                    },
+                    onPageChanged: (index){
+                      _currentIndex = index;
+                    },
+                  );
 
-            PageView pageView = PageView.builder(
-              controller: controller.pageController,
-              physics: const BouncingScrollPhysics(),
-              itemCount: controller.cardsList.length,
-              itemBuilder: (context, position) {
-                return _buildPageItem(position);
-              },
-              onPageChanged: (index){
-                _currentIndex = index;
-              },
-            );
-
-            return Column(
-              children: [
-                SizedBox(
-                    height: _height,
-                    child:  controller.isLoading ? Center(child: CircularProgressIndicator(color: AppColors.primaryColor,))
-                        : controller.isLoaded ? pageView : controller.isLoaded == false && controller.isLoading == false ? ErrorContainer("Error loading cards...\nTry again later", () {
-                      controller.reloadData();
-                    }) : pageView
-                ),
-                const SizedBox(height: 8,),
-
-                //CARDS DOTS INDICATOR
-
-                controller.isLoaded && controller.cardsList.length > 0 ? DotsIndicator(
-                  position: controller.currPageValue.toDouble(),
-                  dotsCount: controller.cardsList.length,
-                  decorator: DotsDecorator(
-                      size: const Size.square(9.0),
-                      activeSize: const Size(18.0, 9.0),
-                      activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                      color: AppColors.lightGrayColor,
-                      activeColor: AppColors.primaryColor
-                  ),
-                  onTap: (tapIndex){
-                    _currentIndex = tapIndex.toInt();
-                    controller.pageController.animateToPage(tapIndex.toInt(), duration: Duration(milliseconds: 300), curve: Curves.linear);
-                  },
-
-                )
-                    : SizedBox(height: 0),
-                SizedBox(height: 20),
-                // ***** Add Menu Items *****
-                Column(
+                  return Column(
                     children: [
-                      for (int i=0; i<controller.cardsMenuItems.length; i++)
-                        GestureDetector(
-                          onTap: (){
-                            controller.onMenuItemTapped(i, context);
-                          },
-                          child: Container(
-                              margin: EdgeInsets.only(
-                                  left: Dimensions.widthPadding10*4,
-                                  right: Dimensions.widthPadding10*4,
-                                  bottom: Dimensions.widthPadding10),
-                              padding: EdgeInsets.only(left: Dimensions.widthPadding15*2),
-                              decoration: BoxDecoration(
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: AppColors.shadowColor,
-                                        blurRadius: 6.0,
-                                        offset: Offset(0,0),
-                                        blurStyle: BlurStyle.outer
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.all(Radius.circular(Dimensions.radius20/2))
-                              ),
-                              alignment: Alignment.centerLeft,
-                              height: Dimensions.height80,
-                              child: SmallText(
-                                  text: controller.cardsMenuItems[i].title(),
-                                  size: 16)
-                          ),
-                        )
-                    ]
-                ),
-                TextButton(
-                  onPressed: () => throw Exception(),
-                  child: const Text("Throw Test Exception"),
-                )
-              ],
-            );
-          })
-        ),
+                      SizedBox(
+                          height: _height,
+                          child:  controller.isLoading ? Center(child: CircularProgressIndicator(color: AppColors.primaryColor,))
+                              : controller.isLoaded ? pageView : controller.isLoaded == false && controller.isLoading == false ? ErrorContainer("Error loading cards...\nTry again later", () {
+                            controller.reloadData();
+                          }) : pageView
+                      ),
+                      const SizedBox(height: 8,),
+
+                      //CARDS DOTS INDICATOR
+
+                      controller.isLoaded && controller.cardsList.length > 0 ? DotsIndicator(
+                        position: controller.currPageValue.toDouble(),
+                        dotsCount: controller.cardsList.length,
+                        decorator: DotsDecorator(
+                            size: const Size.square(9.0),
+                            activeSize: const Size(18.0, 9.0),
+                            activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                            color: AppColors.lightGrayColor,
+                            activeColor: AppColors.primaryColor
+                        ),
+                        onTap: (tapIndex){
+                          _currentIndex = tapIndex.toInt();
+                          controller.pageController.animateToPage(tapIndex.toInt(), duration: Duration(milliseconds: 300), curve: Curves.linear);
+                        },
+
+                      )
+                          : SizedBox(height: 0),
+                      SizedBox(height: 20),
+                      // ***** Add Menu Items *****
+                      Column(
+                          children: [
+                            for (int i=0; i<controller.cardsMenuItems.length; i++)
+                              GestureDetector(
+                                onTap: (){
+                                  controller.onMenuItemTapped(i, context);
+                                },
+                                child: Container(
+                                    margin: EdgeInsets.only(
+                                        left: Dimensions.widthPadding10*4,
+                                        right: Dimensions.widthPadding10*4,
+                                        bottom: Dimensions.widthPadding10),
+                                    padding: EdgeInsets.only(left: Dimensions.widthPadding15*2),
+                                    decoration: BoxDecoration(
+                                        boxShadow: const [
+                                          BoxShadow(
+                                              color: AppColors.shadowColor,
+                                              blurRadius: 6.0,
+                                              offset: Offset(0,0),
+                                              blurStyle: BlurStyle.outer
+                                          )
+                                        ],
+                                        borderRadius: BorderRadius.all(Radius.circular(Dimensions.radius20/2))
+                                    ),
+                                    alignment: Alignment.centerLeft,
+                                    height: Dimensions.height80,
+                                    child: SmallText(
+                                        text: controller.cardsMenuItems[i].title(),
+                                        size: 16)
+                                ),
+                              )
+                          ]
+                      ),
+                      TextButton(
+                        onPressed: () => throw Exception(),
+                        child: const Text("Throw Test Exception"),
+                      )
+                    ],
+                  );
+                })
+            ),
+          ),
+          )
+        ]
       ),
     );
   }

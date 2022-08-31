@@ -4,7 +4,9 @@ import 'package:sample/pages/menu/menu_controller.dart';
 import 'package:sample/widgets/small_text.dart';
 import 'package:get/get.dart';
 
-class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
+// implements PreferredSizeWidget
+
+class MainAppBar extends StatelessWidget with PreferredSizeWidget {
   @override
   final Size preferredSize; // default is 56.0
   final String? titleText;
@@ -31,10 +33,20 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
     Widget rightWidget = Icon(Icons.add, color: Colors.transparent);
 
     if (showMenuIcon == true) {
-      leftWidget = InkWell(child: Icon(Icons.menu, color: Colors.blue), onTap: (){
-          _isCollapsed = !_isCollapsed;
-          Get.find<MenuController>().setCollapsed(_isCollapsed);
-        },);
+      leftWidget = MenuItem(didTapAction: (){
+        _isCollapsed = !_isCollapsed;
+        Get.find<MenuController>().setCollapsed(_isCollapsed);
+      });
+      // leftWidget = InkWell(
+      //   child: AnimatedIcon(
+      //       progress: _animationController,
+      //       icon: AnimatedIcons.menu_arrow
+      //   ),
+      //   onTap: (){
+      //     _isCollapsed = !_isCollapsed;
+      //     Get.find<MenuController>().setCollapsed(_isCollapsed);
+      //   },
+      // );
     }
 
     if (showAccountIcon! == true){
@@ -66,6 +78,44 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.navBgColor,
       foregroundColor: AppColors.primaryColor,
       actions: [rightWidget],
+    );
+  }
+}
+
+class MenuItem extends StatefulWidget {
+  final void Function()? didTapAction;
+
+  const MenuItem({Key? key, this.didTapAction}) : super(key: key);
+
+  @override
+  State<MenuItem> createState() => _MenuItemState();
+}
+
+class _MenuItemState extends State<MenuItem> with TickerProviderStateMixin {
+  late AnimationController _animationController;
+  bool _isPlaying = false;
+
+  @override
+  Widget build(BuildContext context) {
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+
+    return Container(
+      child: InkWell(
+        child: AnimatedIcon(
+            progress: _animationController,
+            icon: AnimatedIcons.menu_close
+        ),
+        onTap: (){
+          _isPlaying = !_isPlaying;
+          if (widget.didTapAction != null) {
+            widget.didTapAction!();
+          }
+          _isPlaying
+              ? _animationController.forward()
+              : _animationController.reverse();
+
+        },
+      ),
     );
   }
 }

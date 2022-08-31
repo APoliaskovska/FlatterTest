@@ -100,7 +100,7 @@ class NavData {
     NavItemData(
       name: 'files',
       route: Routes.FILES,
-      icon: Icons.dataset_outlined,
+      icon: Icons.folder_copy_outlined,
       navItem: NavItem(
         navKey: NavKeys.FILES,
         getPage: GetPage(

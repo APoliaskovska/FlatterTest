@@ -23,63 +23,72 @@ class ProfilePage extends GetView<ProfileController> {
               controller.logout(context);
             })
         ),
-        body: Obx(() {
-          return controller.userDetails != null ? Container(
-            decoration: BoxDecoration(
-                color: Colors.white
-            ),
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Container(
-                  clipBehavior: Clip.hardEdge,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      color: AppColors.primaryColor,
-                      border: Border.all(
-                        strokeAlign: StrokeAlign.outside,
-                        width: 1.0,
-                        color: AppColors.primaryColor
-                      ),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(_imageSize / 2))
-                  ),
-                  height: _imageSize,
-                  width: _imageSize,
-                  child: controller.avatar == null ?
-                  BigText(text: "${controller.userDetails!.name[0]}${controller
-                      .userDetails!.surname[0]}".toUpperCase())
-                      : controller.avatar!, //Image.asset("images/profile.jpg")
-                ),
-                SizedBox(height: Dimensions.height15 * 2,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SmallText(text: "ID:"),
-                    SmallText(text: " "),
-                    SmallText(
-                      text: controller.userDetails!.id.toString(), size: 16,)
-                  ],
-                ),
-                SizedBox(height: Dimensions.height20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SmallText(text: controller.userDetails!.name, size: 16,),
-                    SmallText(text: " "),
-                    SmallText(text: controller.userDetails!.surname, size: 16,)
-                  ],
-                ),
-                SizedBox(height: Dimensions.height10,),
-                SmallText(text: controller.userDetails!.dateBirth, size: 16,)
-              ],
-            ),
-          )
-              : ErrorContainer(
-              "Error loading profile details...\nTry again later", () {
-            controller.reloadData();
-          });
-        })
+        body: Stack(
+          children:[
+            Positioned(
+                top: 0,
+                bottom: 0,
+                width: Dimensions.screenWidth,
+                child: Obx(() {
+                  return controller.userDetails != null ? Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white
+                    ),
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Container(
+                          clipBehavior: Clip.hardEdge,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              color: AppColors.primaryColor,
+                              border: Border.all(
+                                  strokeAlign: StrokeAlign.outside,
+                                  width: 1.0,
+                                  color: AppColors.primaryColor
+                              ),
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(_imageSize / 2))
+                          ),
+                          height: _imageSize,
+                          width: _imageSize,
+                          child: controller.avatar == null ?
+                          BigText(text: "${controller.userDetails!.name[0]}${controller
+                              .userDetails!.surname[0]}".toUpperCase())
+                              : controller.avatar!, //Image.asset("images/profile.jpg")
+                        ),
+                        SizedBox(height: Dimensions.height15 * 2,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SmallText(text: "ID:"),
+                            SmallText(text: " "),
+                            SmallText(
+                              text: controller.userDetails!.id.toString(), size: 16,)
+                          ],
+                        ),
+                        SizedBox(height: Dimensions.height20,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SmallText(text: controller.userDetails!.name, size: 16,),
+                            SmallText(text: " "),
+                            SmallText(text: controller.userDetails!.surname, size: 16,)
+                          ],
+                        ),
+                        SizedBox(height: Dimensions.height10,),
+                        SmallText(text: controller.userDetails!.dateBirth, size: 16,)
+                      ],
+                    ),
+                  )
+                      : ErrorContainer(
+                      "Error loading profile details...\nTry again later", () {
+                    controller.reloadData();
+                  });
+                })
+            )
+          ],
+        )
     );
   }
 }
