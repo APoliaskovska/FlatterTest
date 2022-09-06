@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/routes/routes.dart';
-
 import '../../service/repository/cards_repo.dart';
 
 class CardDetailsController extends GetxController with StateMixin {

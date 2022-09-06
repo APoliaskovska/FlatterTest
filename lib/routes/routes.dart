@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
-import 'package:sample/pages/files/files_controller.dart';
-import 'package:sample/pages/files/files_page.dart';
+import 'package:sample/pages/files/files/files_controller.dart';
+import 'package:sample/pages/files/files/files_page.dart';
+import 'package:sample/pages/files/folders/folders_controller.dart';
+import 'package:sample/pages/files/folders/folders_page.dart';
 import 'package:sample/pages/menu/menu_controller.dart';
 import 'package:sample/pages/menu/menu_page.dart';
 import 'package:sample/service/repository/client_repo.dart';
@@ -39,7 +41,7 @@ abstract class Routes {
   static const TOP_UP = '/top_up';
   static const CARDS = '/cards';
   static const UPLOAD = '/upload';
-  static const FILES = '/files';
+  static const FOLDERS = '/folders';
 
   static const CARDS_DETAILS = '/cards_details';
 
@@ -131,13 +133,17 @@ abstract class AppPages {
       })
     ),
     GetPage(
-        name: Routes.FILES,
-        page: () => FilesPage(),
+        name: Routes.FOLDERS,
+        page: () => FoldersPage(),
         transition: Transition.circularReveal,
         binding: BindingsBuilder.put(() {
           Get.lazyPut(() => UploadRepo());
-          return FilesController(uploadRepo: Get.find());
+          return FoldersController(uploadRepo: Get.find());
         })
-    )
+    ),
   ];
+
+  static Future<GetPage> getPageFromRoute(String route) async {
+    return await routes.firstWhere((element) => element.name == route);
+  }
 }

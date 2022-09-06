@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -61,5 +59,19 @@ class MainService extends GetxService {
      }
     print("Upload doc result = " + success.toString() + " error = " + error.toString());
     return success ? true : error;
+  }
+
+  //FOLDERS & FILES
+
+  Future<dynamic> getFolders(String userId) async {
+    return stub.getFileFolders(FileFoldersRequest(userId: userId));
+  }
+
+  Future<dynamic> getFolderFiles(String userId, String folderId) async {
+    return stub.getFilesFromFolder(FilesFromFoldersRequest(userId: userId, folderId: folderId));
+  }
+
+  Stream<FileData> downloadFile(String userId, String fileId) {
+    return stub.downloadFile(DownloadFileRequest(userId: userId, fileId: fileId));
   }
 }

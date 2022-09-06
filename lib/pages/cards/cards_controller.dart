@@ -51,7 +51,6 @@ class CardsController extends MainTabController  {
    // if (cardsList.length <= index) { return; }
     final card = cardsList[index];
     Get.toNamed(Routes.CARDS_DETAILS, arguments: [card]);
-   // Get.to(() => CardDetailsPage(), arguments: [card]);
   }
 
   @override
