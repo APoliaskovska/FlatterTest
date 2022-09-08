@@ -6,7 +6,6 @@ import 'package:sample/pages/files/folders/folders_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 
-import '../../../routes/routes.dart';
 import '../../../widgets/main_app_bar.dart';
 
 class FoldersPage extends GetView<FoldersController> {
@@ -14,16 +13,6 @@ class FoldersPage extends GetView<FoldersController> {
 
   @override
   Widget build(BuildContext context) {
-    final double navigationBarHeight = MediaQuery
-        .of(context)
-        .padding
-        .bottom;
-    final double tabBarHeight = MediaQuery
-        .of(context)
-        .padding
-        .top;
-
-
     return Scaffold(
       appBar: MainAppBar(
         titleText: "Folders",

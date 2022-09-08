@@ -1,8 +1,4 @@
-import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/constants/constants.dart';
@@ -13,7 +9,7 @@ import 'package:sample/widgets/small_text.dart';
 import '../../../widgets/main_app_bar.dart';
 
 class FilesPage extends GetView<FilesController> {
-  Color currentColor = AppFolderColors.folderColor1;
+  Color _currentColor = AppFolderColors.folderColor1;
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +78,12 @@ class FilesPage extends GetView<FilesController> {
   }
 
   Color folderColor() {
-    int _index = AppFolderColors.colors.indexOf(currentColor);
+    int _index = AppFolderColors.colors.indexOf(_currentColor);
     if (_index == AppFolderColors.colors.length - 1) {
-      currentColor = AppFolderColors.colors.first;
+      _currentColor = AppFolderColors.colors.first;
     } else {
-      currentColor = AppFolderColors.colors[_index + 1];
+      _currentColor = AppFolderColors.colors[_index + 1];
     }
-    return currentColor;
+    return _currentColor;
   }
 }

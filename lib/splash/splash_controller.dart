@@ -23,11 +23,12 @@ class SplashController extends GetxController {
     } catch (error) {
       print("Firebase error: " + error.toString());
     }
-    return await AuthService().getToken().then((token) {
+    return await AuthService().getToken().then((token) async {
       if (token != null && token.isNotEmpty) {
         return Routes.MENU;
       } else {
-        return Routes.LOGIN;
+        bool isFirstLoad = await AuthService().getFirstLoad();
+        return isFirstLoad == true ? Routes.ONBOARDING : Routes.LOGIN;
       }
     });
   }

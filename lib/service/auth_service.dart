@@ -1,5 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:proto_sample/generated/sample.pb.dart';
 
 class _SecItem {
   _SecItem(this.key, this.value);
@@ -11,6 +12,7 @@ abstract class AuthServicesKeys {
   static const TOKEN = 'token';
   static const PASSCODE = 'passcode';
   static const BACKGROUND_TIME = 'background_time';
+  static const IS_FIRST_LOAD = 'first_load';
 }
 
 class AuthService extends GetxService  {
@@ -65,6 +67,16 @@ class AuthService extends GetxService  {
 
   Future<void> setToken(String newToken) async {
     _addNewItem(AuthServicesKeys.TOKEN, newToken);
+    _readAll();
+  }
+
+  Future<bool> getFirstLoad() async {
+    String? isFirstLoad = await _readSecureItem(AuthServicesKeys.IS_FIRST_LOAD);
+    return isFirstLoad == null || isFirstLoad == "1" ? true : false;
+  }
+
+  Future<void> setFirstLoad(bool isFirstLoad) async {
+    _addNewItem(AuthServicesKeys.IS_FIRST_LOAD, isFirstLoad == true ? "1" : "0");
     _readAll();
   }
 

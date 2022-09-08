@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:get/get.dart';
@@ -26,15 +27,23 @@ class AuthController extends GetxController {
   final _isValidPassword = false.obs;
   final _inProgress = false.obs;
   final _isFirstLoad = true.obs;
+  final _isKeyboardVisible = false.obs;
 
   bool get isValidLogin => _isValidLogin();
   bool get isValidPassword => _isValidPassword();
   bool get inProgress => _inProgress();
   bool get isFirstLoad => _isFirstLoad();
+  bool get isKeyboardVisible => _isKeyboardVisible();
 
   @override
   void onInit() {
     super.onInit();
+
+  }
+  
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   void setLogin(String? login){

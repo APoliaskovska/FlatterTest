@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:sample/pages/files/files/files_controller.dart';
-import 'package:sample/pages/files/files/files_page.dart';
 import 'package:sample/pages/files/folders/folders_controller.dart';
 import 'package:sample/pages/files/folders/folders_page.dart';
 import 'package:sample/pages/menu/menu_controller.dart';
 import 'package:sample/pages/menu/menu_page.dart';
+import 'package:sample/pages/onboarding/onboarding_controller.dart';
+import 'package:sample/pages/onboarding/onboarding_page.dart';
 import 'package:sample/service/repository/client_repo.dart';
 import 'package:sample/service/repository/upload_repo.dart';
 import 'package:sample/splash/splash_controller.dart';
@@ -32,6 +32,7 @@ import '../service/grpc/grpc_service.dart';
 abstract class Routes {
   static const SPLASH = '/splash';
   static const LOGIN = '/login';
+  static const ONBOARDING = '/onboarding';
 
   static const PASSCODE = '/passcode';
 
@@ -139,6 +140,14 @@ abstract class AppPages {
         binding: BindingsBuilder.put(() {
           Get.lazyPut(() => UploadRepo());
           return FoldersController(uploadRepo: Get.find());
+        })
+    ),
+    GetPage(
+        name: Routes.ONBOARDING,
+        page: () => OnboardingPage(),
+        transition: Transition.circularReveal,
+        binding: BindingsBuilder.put(() {
+          return OnboardingController();
         })
     ),
   ];

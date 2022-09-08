@@ -9,6 +9,7 @@ class BigText extends StatelessWidget {
   final double? height;
   final FontType? fontType;
   final TextAlign? textAlign;
+  final int? lineCount;
 
   const BigText({ Key? key,
     this.color = AppColors.mainBlackColor,
@@ -16,7 +17,8 @@ class BigText extends StatelessWidget {
     this.size = 0,
     this.height = 1.8,
     this.fontType = FontType.medium,
-    this.textAlign = TextAlign.left
+    this.textAlign = TextAlign.left,
+    this.lineCount = 1
   }) : super(key: key);
 
   @override
@@ -24,9 +26,9 @@ class BigText extends StatelessWidget {
     return Text(
       text!,
       textAlign: textAlign,
-      overflow: TextOverflow.clip,
-      maxLines: 1,
+      maxLines: lineCount ?? 1,
       softWrap: false,
+      textDirection: TextDirection.rtl,
       style: TextStyle(fontFamily: 'Roboto',
         color: color,
         fontSize: size == 0 ? 24 : size,
@@ -37,3 +39,23 @@ class BigText extends StatelessWidget {
     );
   }
 }
+
+/*
+ @override
+  Widget build(BuildContext context) {
+    return Text(
+      text!,
+      textAlign: textAlign,
+      maxLines: this.lineCount ?? 1,
+      //textScaleFactor: 0.8,
+      softWrap: false,
+      textDirection: TextDirection.rtl,
+      style: TextStyle(fontFamily: 'Roboto',
+        color: color,
+        fontSize: size == 0 ? 14 : size,
+        height: height,
+        overflow: overflow,
+        fontWeight: fontType!.weight(),
+      ),
+    );
+ */

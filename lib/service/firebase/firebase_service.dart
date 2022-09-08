@@ -3,7 +3,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
-import 'package:sample/pages/files/files/files_page.dart';
 import 'package:sample/routes/routes.dart';
 
 class FirebaseService extends GetxService {

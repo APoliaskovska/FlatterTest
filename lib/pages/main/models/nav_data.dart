@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sample/pages/files/files/files_controller.dart';
-import 'package:sample/pages/files/files/files_page.dart';
 import 'package:sample/pages/files/folders/folders_controller.dart';
 import 'package:sample/pages/files/folders/folders_page.dart';
 import 'package:sample/pages/upload/upload_controller.dart';

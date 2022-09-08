@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
 import 'package:sample/pages/files/files/files_page.dart';
-import 'package:sample/routes/routes.dart';
 import 'package:sample/utils/get_utils.dart';
 
 import '../../../service/repository/upload_repo.dart';

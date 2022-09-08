@@ -67,7 +67,7 @@ class ProfileController extends MainTabController {
     await clientRepo.logout();
     await AuthService().cleanStorage();
     _isLoading(false);
-    await Future.delayed(const Duration(milliseconds: 1000), () async {
+    await Future.delayed(const Duration(milliseconds: 3), () async {
       Get.offAllNamed(Routes.LOGIN);
     });
   }

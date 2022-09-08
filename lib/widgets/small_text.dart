@@ -44,7 +44,7 @@ class SmallText extends StatelessWidget {
     return Text(
       text!,
       textAlign: textAlign,
-      maxLines: this.lineCount != null ? this.lineCount : 1,
+      maxLines: this.lineCount ?? 1,
       //textScaleFactor: 0.8,
       softWrap: false,
       textDirection: TextDirection.rtl,
