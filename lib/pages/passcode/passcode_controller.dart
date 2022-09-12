@@ -4,6 +4,7 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_ios/local_auth_ios.dart';
 import 'package:local_auth_android/local_auth_android.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/passcode/passcode_service.dart';
 
 import 'package:sample/service/auth_service.dart';
@@ -14,7 +15,7 @@ import '../../utils/get_utils.dart';
 class PasscodeController extends GetxController with StateMixin {
   static PasscodeController get() => Get.find();
 
-  final _title = "Enter passcode".obs;
+  final _title = "".obs;
   final int inputCount = 6;
 
   final LocalAuthentication auth = LocalAuthentication();
@@ -41,7 +42,7 @@ class PasscodeController extends GetxController with StateMixin {
     super.onInit();
 
     _isPasscodeExist(await AuthService().isPasscodeExist());
-    _title(isPasscodeExist ? "Enter Passcode" : "Create Passcode");
+    _title(isPasscodeExist ? Strings.enter_passcode.translate() : Strings.create_passcode.translate());
   }
 
   @override
@@ -78,7 +79,7 @@ class PasscodeController extends GetxController with StateMixin {
          // AppUtils.showError("Wrong passcode");
         }
       } else if (_isConfirmation == false) {
-        _title("Confirm passcode");
+        _title(Strings.confirm_passcode.translate());
         _isConfirmation = true;
         _passcodeConfirm = _passcode;
         _passcode = "";
@@ -91,7 +92,7 @@ class PasscodeController extends GetxController with StateMixin {
         if (isValid == false) { return; }
         await AuthService().setPasscode(_passcode);
         _close();
-        _title("Enter passcode");
+        _title(Strings.enter_passcode.translate());
       }
     } else {
       _passcode += index;
@@ -154,7 +155,7 @@ class PasscodeController extends GetxController with StateMixin {
         if (e.code == auth_error.notAvailable) {
           // Add handling of no hardware here.
         } else if (e.code == auth_error.notEnrolled) {
-          AppUtils.showError("Biometric not enrolled");
+          AppUtils.showError(Strings.biometric_error.translate());
         } else {
           // ...
         }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/models/card.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
@@ -62,7 +63,7 @@ class CardBody extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SmallText(text: card.holderName, fontType: FontType.medium, size: 16,),
-                SmallText(text:"Expires ${card.expires}"),
+                SmallText(text: Strings.expires.translate() + " ${card.expires}"),
               ],
               )
             ],

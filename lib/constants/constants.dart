@@ -48,9 +48,15 @@ class AppErrorsString {
 }
 
 class AppGlobalKeys {
+  static GlobalKey topNavBar = _globalKey("top_nav_bar");
   static GlobalKey bottomNavBar = _globalKey("btm_app_bar");
+  static GlobalKey<NavigatorState> materialKey = _navigatorKey("app_main_key");
 
   static GlobalKey _globalKey(String key) {
     return new GlobalKey(debugLabel: key);
+  }
+
+  static GlobalKey<NavigatorState> _navigatorKey(String key) {
+    return new GlobalKey<NavigatorState>(debugLabel: key);
   }
 }

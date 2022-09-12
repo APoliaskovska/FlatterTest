@@ -33,9 +33,9 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
     Widget rightWidget = Icon(Icons.add, color: Colors.transparent);
 
     if (showMenuIcon == true) {
+
       leftWidget = MenuItem(didTapAction: (){
-        _isCollapsed = !_isCollapsed;
-        Get.find<MenuController>().setCollapsed(_isCollapsed);
+        setCollapsed(!_isCollapsed);
       });
       // leftWidget = InkWell(
       //   child: AnimatedIcon(
@@ -79,6 +79,11 @@ class MainAppBar extends StatelessWidget with PreferredSizeWidget {
       foregroundColor: AppColors.primaryColor,
       actions: [rightWidget],
     );
+  }
+
+  Future<void> setCollapsed(bool collapsed) async {
+    _isCollapsed = collapsed;
+    Get.find<MenuController>().setCollapsed(collapsed);
   }
 }
 

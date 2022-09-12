@@ -1,0 +1,49 @@
+{
+  "appTitle": "Sample EN",
+
+  "auth_title": "Auth",
+  "login_field": "Login",
+  "password_field": "Password",
+  "sign_in_button": "Sign in",
+  "user_not_found_error": "User not found",
+  "error": "Error",
+
+  "enter_passcode_title": "Enter passcode",
+  "create_passcode_title": "Create Passcode",
+  "confirm_passcode_title": "Confirm passcode",
+  "biometric_error": "Biometric not enrolled",
+
+  "dashboard_title": "Dashboard",
+  "messages_title": "Messages",
+  "utility_bills_title": "Utility Bills",
+  "funds_transfer_title": "Funds Transfer",
+  "settings_title": "Settings",
+
+  "language": "Language",
+
+  "card_limits": "Card Limits",
+  "change_pin": "Change PIN",
+  "freeze_card": "Freeze card",
+  "close_card": "Close card",
+
+  "cards_title": "Cards",
+  "transactions_string": "Transactions",
+
+  "expires": "Expires",
+  "search": "Search",
+  "search_transaction": "Search Transaction",
+  "success_status": "success",
+  "fail_status": "fail",
+  "transactions_not_found_error": "Transactions not found",
+  "fee": "Fee",
+  "status": "Status",
+  "no_transactions": "You haven't transactions yet",
+  "profile_title": "Profile",
+  "top_up_title": "Top up",
+  "upload_title": "Upload",
+  "forlders_title": "Forlders",
+
+  "security_item": "Security",
+  "enable_face_id": "Enable Face-ID",
+  "show_passcode": "Show passcode"
+}

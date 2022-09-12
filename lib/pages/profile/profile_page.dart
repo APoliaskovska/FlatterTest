@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/profile/profile_contoller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/big_text.dart';
@@ -17,7 +18,7 @@ class ProfilePage extends GetView<ProfileController> {
     return Scaffold(
         appBar: MainAppBar(
             showMenuIcon: true,
-            titleText: "Profile",
+            titleText: Strings.profile_title.translate(),
             rightItem:
             LogoutWidget(onPressed: () {
               controller.logout(context);

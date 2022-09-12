@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pbgrpc.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/routes/routes.dart';
 
 import '../../service/repository/cards_repo.dart';
@@ -12,13 +13,13 @@ extension CardsMenuItemsTitle on CardsMenuItems {
   String title() {
     switch (this) {
       case CardsMenuItems.cardLimits:
-        return "Card Limits";
+        return Strings.card_limits.translate();
       case CardsMenuItems.changePIN:
-        return "Change PIN";
+        return Strings.change_pin.translate();
       case CardsMenuItems.freezeCard:
-        return "Freeze card";
+        return Strings.freeze_card.translate();
       case CardsMenuItems.closeCard:
-        return "Close card";
+        return Strings.close_card.translate();
     }
   }
 }

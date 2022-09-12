@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/card_details/cards_transactions/search_transaction_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
@@ -13,7 +14,7 @@ class SearchTransactionPage extends  GetView<SearchTransactionController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        titleText: "Search Transaction",
+        titleText: Strings.search_transaction.translate(),
         showAccountIcon: false,
       ),
       body: Obx(() {
@@ -24,7 +25,7 @@ class SearchTransactionPage extends  GetView<SearchTransactionController> {
               SizedBox(height: Dimensions.height10),
               TextField(
                 decoration: InputDecoration(
-                  labelText: "Search",
+                  labelText: Strings.search.translate(),
                   suffixIcon: Icon(Icons.search),
                   labelStyle: TextStyle()
                 ),
@@ -41,7 +42,7 @@ class SearchTransactionPage extends  GetView<SearchTransactionController> {
                         TransactionItem(controller.filterTransactions[index]),
                       ],
                     )
-                ) : Center(child: SmallText(text: "Transactions not found")),
+                ) : Center(child: SmallText(text: Strings.transactions_not_found_error.translate())),
               )
             ],
           ),

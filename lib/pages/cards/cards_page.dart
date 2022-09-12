@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/cards/widgets/card_body.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/main_app_bar.dart';
@@ -22,7 +23,7 @@ class CardsPage extends GetView<CardsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        titleText: "Cards",
+        titleText: Strings.cards.translate(),
         showAccountIcon: true,
         showMenuIcon: true,
       ),

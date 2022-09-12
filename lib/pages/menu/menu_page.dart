@@ -71,16 +71,9 @@ class MenuPage extends GetView<MenuController> {
                     )
                   ],
                 ),
-                SizedBox(height: Dimensions.height20),
-                _menuItem("Dashboard", Icons.dashboard),
-                SizedBox(height: Dimensions.height10),
-                _menuItem("Messages", Icons.message),
-                SizedBox(height: Dimensions.height10),
-                _menuItem("Utility Bills", Icons.document_scanner_outlined),
-                SizedBox(height: Dimensions.height10),
-                _menuItem("Funds Transfer", Icons.currency_exchange),
-                SizedBox(height: Dimensions.height10),
-                _menuItem("Settings", Icons.settings),
+                SizedBox(height: Dimensions.height15),
+                for (int i = 0; i < ItemData.allItems.length; i++)
+                  _menuItem(ItemData.allItems[i])
               ],
             ),
           ),
@@ -133,19 +126,26 @@ class MenuPage extends GetView<MenuController> {
     });
   }
 
-  Widget _menuItem(String text, IconData icon) {
-    return Container(
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.white),
-          SizedBox(width: 10),
-          SmallText(
-              text: text,
-              color: Colors.white
+  Widget _menuItem(MenuItems item) {
+    return GestureDetector(
+      onTap: () async {
+        await controller.didTapItem(item);
+      },
+      child: Column(
+        children:[
+          Row(
+            children: [
+              Icon(item.icon(), color: Colors.white),
+              SizedBox(width: 10),
+              SmallText(
+                text: item.title(),
+                color: Colors.white
+              ),
+            ],
           ),
-        ],
+          SizedBox(height: Dimensions.height10)
+        ]
       ),
     );
   }
-
 }

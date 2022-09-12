@@ -4,6 +4,8 @@ import 'package:sample/constants/constants.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
 
+import '../../../constants/localization_keys.dart';
+
 extension TransactionStatus on Transaction {
   Color statusColor() {
     return this.status == "Fail" ? Colors.red : AppColors.mediumGrayColor;
@@ -34,14 +36,14 @@ class TransactionItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SmallText(text: "Fee:"),
+              SmallText(text: Strings.fee.translate() + ":"),
               SmallText(text: transaction.fee.toStringAsFixed(2) + " " + transaction.currency),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SmallText(text: "Status: " +  transaction.status),
+              SmallText(text: Strings.status.translate() + ": " +  transaction.status),
               SmallText(text: transaction.date),
             ],
           )

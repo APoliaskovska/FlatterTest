@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:proto_sample/generated/sample.pb.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/card_details/widgets/transaction_item.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/small_text.dart';
@@ -16,7 +17,7 @@ class CardDetailsPage extends GetView<CardDetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-        titleText: "Cards",
+        titleText: Strings.cards.translate(),
         showAccountIcon: false,
         rightItem: SearchWidget(onPressed: () {
           controller.openSearch();
@@ -34,8 +35,7 @@ class CardDetailsPage extends GetView<CardDetailsController> {
                   child: _buildFlipAnimation(
                       controller.paymentCard) //CardBody(controller.paymentCard)
               ),
-              SmallText(
-                text: "Transactions", size: 18, fontType: FontType.medium,),
+              SmallText(text: Strings.transactions.translate(), size: 18, fontType: FontType.medium,),
 
               //TRANSACTIONS
               controller.transactions.length > 0 ? Container(
@@ -57,7 +57,7 @@ class CardDetailsPage extends GetView<CardDetailsController> {
               Container(
                 height: Dimensions.height200,
                 child: Center(
-                    child: SmallText(text: "You haven't transactions yet...")),
+                    child: SmallText(text: Strings.no_transactions_text.translate())),
               )
             ],
           ),

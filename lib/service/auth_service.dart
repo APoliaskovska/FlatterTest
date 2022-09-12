@@ -1,6 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
-import 'package:proto_sample/generated/sample.pb.dart';
 
 class _SecItem {
   _SecItem(this.key, this.value);

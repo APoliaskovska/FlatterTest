@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/top_up/top_up_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/big_text.dart';
@@ -17,7 +18,7 @@ class TopUpPage extends GetView<TopUpController> {
     return Scaffold(
       appBar: MainAppBar(
         showMenuIcon: true,
-        titleText: "Top Up",
+        titleText: Strings.top_up_title.translate(),
         showAccountIcon: false,
         rightItem: infoWidget(),
       ),

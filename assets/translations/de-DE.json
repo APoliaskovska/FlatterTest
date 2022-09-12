@@ -1,0 +1,49 @@
+{
+  "appTitle": "Sample DE",
+
+  "auth_title": "Autorisierung",
+  "login_field": "Anmeldung",
+  "password_field": "Passwort",
+  "sign_in_button": "Anmelden",
+  "user_not_found_error": "Benutzer nicht gefunden",
+  "error": "Fehler",
+
+  "enter_passcode_title": "Passwort eingeben",
+  "create_passcode_title": "Passwort erstellen",
+  "confirm_passcode_title": "Passwort bestätigene",
+  "biometric_error": "Biometrie nicht registriert",
+
+  "dashboard_title": "Armaturenbrett",
+  "messages_title": "Mitteilungen",
+  "utility_bills_title": "Stromrechnungen",
+  "funds_transfer_title": "Geldüberweisung",
+  "settings_title": "Einstellungen",
+
+  "language": "Sprache",
+
+  "card_limits": "Kartenlimits",
+  "change_pin": "PIN ändern",
+  "freeze_card": "Karte einfrieren",
+  "close_card": "Karte schließen",
+
+  "cards_title": "Karten",
+  "transactions_string": "Transaktionen",
+
+  "expires": "Läuft ab",
+  "search": "Suche",
+  "search_transaction": "Transaktion suchen",
+  "success_status": "Erfolg",
+  "fail_status": "fehlgeschlagen",
+  "transactions_not_found_error": "Transaktionen nicht gefunden",
+  "fee": "Gebühr",
+  "status": "Status",
+  "no_transactions": "Sie haben noch keine Transaktionen",
+  "profile_title": "Profil",
+  "top_up_title": "Aufladen",
+  "upload_title": "Hochladen",
+  "forlders_title": "Ordner",
+
+  "security_item": "Sicherheit",
+  "enable_face_id": "Gesichts-ID aktivieren",
+  "show_passcode": "Passwort anzeigen"
+}

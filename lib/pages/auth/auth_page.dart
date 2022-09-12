@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/auth/auth_controller.dart';
 import 'package:sample/utils/dimensions.dart';
 import 'package:sample/widgets/buttons/main_button.dart';
@@ -12,7 +13,7 @@ class AuthPage extends GetView<AuthController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MainAppBar(
-          titleText: "Auth",
+          titleText: Strings.auth_title.translate(),
           showAccountIcon: false
       ),
       body: Obx(() {
@@ -43,9 +44,9 @@ class AuthPage extends GetView<AuthController> {
                       },
                       style: const TextStyle(fontSize: 18.0),
                       decoration: controller.isValidLogin || controller.isFirstLoad ? InputDecoration(
-                        hintText: 'Login',
+                        hintText: Strings.login_field.translate(),
                       ) : InputDecoration(
-                          hintText: 'Login',
+                          hintText: Strings.login_field.translate(),
                           errorText: AppErrorsString.FIELD_IS_EMPTY
                       ),
                       validator: (val) => (val == null) ? AppErrorsString.INVALID_LOGIN_OR_PASSWORD : null,
@@ -61,9 +62,9 @@ class AuthPage extends GetView<AuthController> {
                       },
                       style: const TextStyle(fontSize: 18.0),
                       decoration: controller.isValidPassword || controller.isFirstLoad ? InputDecoration(
-                          hintText: 'Password'
+                          hintText: Strings.password_field.translate()
                       ) : InputDecoration(
-                          hintText: 'Password',
+                          hintText: Strings.password_field.translate(),
                           errorText: AppErrorsString.FIELD_IS_EMPTY
                       ),
                       validator: (val) => (val == null) ? AppErrorsString.INVALID_LOGIN_OR_PASSWORD : null,
@@ -71,7 +72,7 @@ class AuthPage extends GetView<AuthController> {
 
                   ),
                   SizedBox(height: Dimensions.height20),
-                  MainButton(text: "Sign in", onPressed: () async {
+                  MainButton(text: Strings.sign_in_button.translate(), onPressed: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
                     if (_isValid) await controller.login();
                   }),

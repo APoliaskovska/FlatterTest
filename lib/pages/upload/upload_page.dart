@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/constants.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/pages/upload/upload_controller.dart';
 import 'package:sample/pages/upload/widgets/file_item.dart';
 import 'package:sample/utils/dimensions.dart';
@@ -14,7 +15,7 @@ class UploadPage extends GetView<UploadController> {
 
     return Scaffold(
       appBar: MainAppBar(
-        titleText: "Upload",
+        titleText: Strings.upload_title.translate(),
         showAccountIcon: false,
         showMenuIcon: true,
       ),

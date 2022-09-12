@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:get/get.dart';
+import 'package:sample/constants/localization_keys.dart';
 import 'package:sample/service/auth_service.dart';
 import 'package:sample/service/repository/auth_repo.dart';
 import 'package:sample/utils/get_utils.dart';
@@ -73,7 +74,7 @@ class AuthController extends GetxController {
       AppUtils.hidePreloader();
       _inProgress(false);
       if (user.login.isEmpty) {
-        AppUtils.showError("User not found...");
+        AppUtils.showError(Strings.user_not_found_error.translate());
       } else {
         saveToken(user.token);
         Get.offAllNamed(Routes.MENU);
