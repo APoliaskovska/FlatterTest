@@ -97,28 +97,17 @@ class MenuItem extends StatefulWidget {
 }
 
 class _MenuItemState extends State<MenuItem> with TickerProviderStateMixin {
-  late AnimationController _animationController;
-  bool _isPlaying = false;
-
   @override
   Widget build(BuildContext context) {
-    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
-
     return Container(
       child: InkWell(
-        child: AnimatedIcon(
-            progress: _animationController,
-            icon: AnimatedIcons.menu_close
+        child: Icon(
+            Icons.menu
         ),
         onTap: (){
-          _isPlaying = !_isPlaying;
           if (widget.didTapAction != null) {
             widget.didTapAction!();
           }
-          _isPlaying
-              ? _animationController.forward()
-              : _animationController.reverse();
-
         },
       ),
     );

@@ -19,9 +19,12 @@ class CardDetailsPage extends GetView<CardDetailsController> {
       appBar: MainAppBar(
         titleText: Strings.cards.translate(),
         showAccountIcon: false,
-        rightItem: SearchWidget(onPressed: () {
-          controller.openSearch();
-        }),
+        rightItem: Row(
+          children: [
+            _calendarWidget(),
+            _searchWidget()
+          ],
+        ),
       ),
       body: controller.obx((state) {
         return SingleChildScrollView(
@@ -137,20 +140,24 @@ class CardDetailsPage extends GetView<CardDetailsController> {
       },
     );
   }
-}
 
-class SearchWidget extends StatelessWidget {
-  final Function() onPressed;
-
-  const SearchWidget({required this.onPressed});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
+  Widget _searchWidget(){
+    return  Container(
         child: IconButton(
           icon: const Icon(Icons.search),
           onPressed: () {
-            onPressed();
+            controller.openSearch();
+          },
+        )
+    );
+  }
+
+  Widget _calendarWidget(){
+    return  Container(
+        child: IconButton(
+          icon: const Icon(Icons.calendar_month),
+          onPressed: () {
+           //
           },
         )
     );

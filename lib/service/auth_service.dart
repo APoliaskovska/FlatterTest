@@ -12,6 +12,8 @@ abstract class AuthServicesKeys {
   static const PASSCODE = 'passcode';
   static const BACKGROUND_TIME = 'background_time';
   static const IS_FIRST_LOAD = 'first_load';
+  static const SHOW_PASSCODE = 'show_passcode';
+  static const ENABLE_FACE_ID = 'enable_face_id';
 }
 
 class AuthService extends GetxService  {
@@ -76,6 +78,28 @@ class AuthService extends GetxService  {
 
   Future<void> setFirstLoad(bool isFirstLoad) async {
     _addNewItem(AuthServicesKeys.IS_FIRST_LOAD, isFirstLoad == true ? "1" : "0");
+    _readAll();
+  }
+
+  //Passcode
+
+  Future<bool> getPasscodeEnabled() async {
+    String? isFirstLoad = await _readSecureItem(AuthServicesKeys.SHOW_PASSCODE);
+    return isFirstLoad == null || isFirstLoad == "1" ? true : false;
+  }
+
+  Future<void> setPasscodeEnabled(bool enabled) async {
+    _addNewItem(AuthServicesKeys.SHOW_PASSCODE, enabled == true ? "1" : "0");
+    _readAll();
+  }
+
+  Future<bool> getFaceIdEnabled() async {
+    String? isFirstLoad = await _readSecureItem(AuthServicesKeys.ENABLE_FACE_ID);
+    return isFirstLoad == null || isFirstLoad == "1" ? true : false;
+  }
+
+  Future<void> setFaceIdEnabled(bool enabled) async {
+    _addNewItem(AuthServicesKeys.ENABLE_FACE_ID, enabled == true ? "1" : "0");
     _readAll();
   }
 

@@ -50,4 +50,8 @@ class CardDetailsController extends GetxController with StateMixin {
   void didTapCard() {
     _displayFront(!displayFront);
   }
+
+  void didTapCalendar() {
+
+  }
 }

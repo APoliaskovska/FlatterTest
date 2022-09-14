@@ -47,7 +47,7 @@ class SmallText extends StatelessWidget {
       maxLines: this.lineCount ?? 1,
       //textScaleFactor: 0.8,
       softWrap: false,
-      textDirection: TextDirection.rtl,
+      //textDirection: TextDirection.rtl,
       style: TextStyle(fontFamily: 'Roboto',
         color: color,
         fontSize: size == 0 ? 14 : size,

@@ -112,16 +112,19 @@ class PasscodePage extends  GetView<PasscodeController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() {
-                        return controller.isPasscodeExist == true? IconButton(
+                        bool showFaceId = controller.isPasscodeExist == true
+                            && controller.showFaceId == true;
+                        return IconButton(
                           onPressed: () async {
-                            await controller.checkBiometrics();
+                              if (showFaceId == true) {
+                                await controller.checkBiometrics();
+                              }
                             },
                           icon: Icon(
                           Icons.tag_faces,
-                          color: iconColor,
+                          color: showFaceId == true ? iconColor : Colors.transparent,
                           ), iconSize: Dimensions.width50,
-                        ) :
-                        Container(height: Dimensions.width50/2, width: Dimensions.width50/2);
+                        );
                       }),
                       // this button is used to delete the last number
                       NumberButton(

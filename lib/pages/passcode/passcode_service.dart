@@ -23,12 +23,13 @@ class PasscodeService extends GetxService {
 
   Future<void> showPasscodeIfNeeded() async {
     if (AuthService().isPasscodePass == true) { return; }
-    if (_isPasscodeShow == true) {
+    bool passcodeEnabled = await AuthService().getPasscodeEnabled();
+    if (_isPasscodeShow == true || passcodeEnabled == false) {
       print("_isPasscodeShow == true");
       return;
     }
 
-    //      AuthService().isPasscodePass = false;
+    //AuthService().isPasscodePass = false;
 
     DateTime bData = await AuthService().getBackgroundTime();
 

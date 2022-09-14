@@ -45,5 +45,10 @@
 
   "security_item": "Security",
   "enable_face_id": "Enable Face-ID",
-  "show_passcode": "Show passcode"
+  "show_passcode": "Show passcode",
+
+  "contact_us_title": "Contact us",
+  "contact_us_text": "If you have questions, please contact us by",
+
+  "notifications_title": "Notifications"
 }

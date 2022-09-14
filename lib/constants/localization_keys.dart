@@ -72,6 +72,16 @@ class Strings {
   static const String enable_face_id = "enable_face_id";
   static const String show_passcode = "show_passcode";
   static const String settings = "settings_title";
+
+  //CONTACT US
+
+  static const String contact_us_title = "contact_us_title";
+  static const String contact_us_text = "contact_us_text";
+
+  //NOTIFICATIONS
+
+  static const String notifications_title = "notifications_title";
+
 }
 
 extension Translation on String {

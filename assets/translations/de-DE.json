@@ -45,5 +45,11 @@
 
   "security_item": "Sicherheit",
   "enable_face_id": "Gesichts-ID aktivieren",
-  "show_passcode": "Passwort anzeigen"
+  "show_passcode": "Passwort anzeigen",
+
+  "contact_us_title": "Kontaktiere uns",
+  "contact_us_text": "Wenn Sie Fragen haben, kontaktieren Sie uns bitte per",
+
+  "notifications_title": "Benachrichtigungen"
+
 }

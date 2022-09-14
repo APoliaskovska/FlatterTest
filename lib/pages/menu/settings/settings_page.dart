@@ -19,17 +19,28 @@ class SettingsPage extends GetView<SettingsController> {
       body: Padding(
         padding: EdgeInsets.all(Dimensions.widthPadding15),
         child: Container(
-          child: Column(
-            children: [
-              SizedBox(height: Dimensions.height10,),
-              _buildLanguageList(),
-              SizedBox(height: Dimensions.height15,),
-              _settingsTitle(Strings.security_item.translate(), Icons.security),
-              SizedBox(height: 20,),
-              _settingsItem(Strings.show_passcode.translate(), Icons.password_outlined, true, true),
-              _settingsItem(Strings.enable_face_id.translate(), Icons.tag_faces_outlined, true, true)
-            ],
-          ),
+          child: Obx(() {
+            return Column(
+              children: [
+                SizedBox(height: Dimensions.height10,),
+                _buildLanguageList(),
+                SizedBox(height: Dimensions.height15,),
+                _settingsTitle(
+                    Strings.security_item.translate(), Icons.security),
+                SizedBox(height: 20,),
+                _settingsItem(
+                    Strings.show_passcode.translate(), Icons.password_outlined,
+                    true, controller.passcodeEnabled, (value){
+                      controller.setEnablePasscode(value);
+                }),
+                _settingsItem(Strings.enable_face_id.translate(),
+                    Icons.tag_faces_outlined, true, controller.faceIdEnabled,
+                        (value){
+                      controller.setEnableFaceId(value);
+                    })
+              ],
+            );
+          }),
         ),
       ),
     );
@@ -62,7 +73,8 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
-  Widget _settingsItem(String text, IconData icon, bool showSwitch, bool? state) {
+  Widget _settingsItem(String text, IconData icon, bool showSwitch,
+      bool? state, void Function(bool)? onSwitchChanged) {
     return GestureDetector(
       onTap: () {
         //onTapAction
@@ -79,8 +91,13 @@ class SettingsPage extends GetView<SettingsController> {
                 size: 16,
               ),
               Spacer(),
-              showSwitch ? Switch(value: state ?? false, onChanged: (value){
-
+              showSwitch ? Switch(
+                  value: state ?? false,
+                  activeColor: AppColors.primaryColor,
+                  onChanged: (value) {
+                if (onSwitchChanged != null) {
+                  onSwitchChanged(value);
+                }
               }) : Container()
             ],
           ),
@@ -95,7 +112,8 @@ class SettingsPage extends GetView<SettingsController> {
       return ExpansionTile(
           leading: Icon(Icons.language, color: AppColors.primaryColor),
           title: SmallText(
-            text: Strings.language.translate() + " " + controller.currentLanguage.langName,
+            text: Strings.language.translate() + " " +
+                controller.currentLanguage.langName,
             color: Colors.black,
             size: 16,
           ),
@@ -113,9 +131,11 @@ class SettingsPage extends GetView<SettingsController> {
                       Text(list[i].flag),
                       SizedBox(width: Dimensions.widthPadding10,),
                       SmallText(
-                        text: list[i].langName,
-                        size: 16,
-                        color: list[i] == controller.currentLanguage ? AppColors.primaryColor : Colors.black ),
+                          text: list[i].langName,
+                          size: 16,
+                          color: list[i] == controller.currentLanguage
+                              ? AppColors.primaryColor
+                              : Colors.black),
                     ],
                   ),
                 ),

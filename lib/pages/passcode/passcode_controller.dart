@@ -22,11 +22,13 @@ class PasscodeController extends GetxController with StateMixin {
   final _passcodeString = "".obs;
   final _isPasscodeExist = false.obs;
   final _showAnimation = false.obs;
+  final _showFaceId = true.obs;
 
   String get title => _title();
   String get passcodeString => _passcodeString();
   bool get isPasscodeExist => _isPasscodeExist();
   bool get showAnimation => _showAnimation();
+  bool get showFaceId => _showFaceId();
 
   bool _isConfirmation = false;
   String _passcodeConfirm = "";
@@ -41,6 +43,7 @@ class PasscodeController extends GetxController with StateMixin {
   void onInit() async {
     super.onInit();
 
+    _showFaceId(await AuthService().getFaceIdEnabled());
     _isPasscodeExist(await AuthService().isPasscodeExist());
     _title(isPasscodeExist ? Strings.enter_passcode.translate() : Strings.create_passcode.translate());
   }
@@ -49,7 +52,7 @@ class PasscodeController extends GetxController with StateMixin {
   Future<void> onReady() async {
     super.onReady();
 
-    if (isPasscodeExist == true) {
+    if (isPasscodeExist == true && showFaceId == true) {
       await checkBiometrics();
     }
   }

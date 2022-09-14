@@ -109,16 +109,23 @@ class MenuPage extends GetView<MenuController> {
         right: controller.isCollapsed ? 0 : -0.2 * Dimensions.screenWidth,
         child: ScaleTransition(
           scale: controller.scaleAnimation,
-          child: Material(
-            clipBehavior: Clip.hardEdge,
-            elevation: 8,
-            borderRadius: BorderRadius.all(Radius.circular(controller.isCollapsed ? 0 : Dimensions.radius20)),
-            child: Navigator(
-              key: _navigatorKey,
-              pages: [
-                AppPages.routes.firstWhere((element) =>
-                element.name == Routes.MAIN)
-              ],
+          child: GestureDetector(
+            onTap: (){
+              if (controller.isCollapsed == false) {
+                controller.setCollapsed(true);
+              }
+            },
+            child: Material(
+              clipBehavior: Clip.hardEdge,
+              elevation: 8,
+              borderRadius: BorderRadius.all(Radius.circular(controller.isCollapsed ? 0 : Dimensions.radius20)),
+              child: Navigator(
+                key: _navigatorKey,
+                pages: [
+                  AppPages.routes.firstWhere((element) =>
+                  element.name == Routes.MAIN)
+                ],
+              ),
             ),
           ),
         ),

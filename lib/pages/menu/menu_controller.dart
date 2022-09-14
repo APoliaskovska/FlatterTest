@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sample/constants/localization_keys.dart';
+import 'package:sample/pages/menu/contacts_us/contact_us_controller.dart';
+import 'package:sample/pages/menu/contacts_us/contact_us_page.dart';
 import 'package:sample/pages/menu/settings/settings_controller.dart';
 import 'package:sample/pages/menu/settings/settings_page.dart';
-import 'package:sample/service/localization_service.dart';
-
-import '../../widgets/main_app_bar.dart';
 
 enum MenuItems {
   dashboard,
   messages,
   utilityBills,
   fundsTransfer,
-  settings
+  settings,
+  contact_us,
+  notifications
 }
 
 extension ItemData on MenuItems {
   static List<MenuItems> allItems = [
     MenuItems.dashboard,
     MenuItems.messages,
-    MenuItems.utilityBills,
+    MenuItems.notifications,
     MenuItems.fundsTransfer,
-    MenuItems.settings];
+    MenuItems.settings,
+    MenuItems.contact_us];
 
   String title() {
     switch (this) {
@@ -35,6 +37,10 @@ extension ItemData on MenuItems {
         return Strings.funds_transfer.translate();
       case MenuItems.settings:
         return Strings.settings.translate();
+      case MenuItems.contact_us:
+        return Strings.contact_us_title.translate();
+      case MenuItems.notifications:
+        return Strings.notifications_title.translate();
     }
   }
   IconData icon() {
@@ -49,6 +55,10 @@ extension ItemData on MenuItems {
         return Icons.currency_exchange;
       case MenuItems.settings:
         return Icons.settings;
+      case MenuItems.contact_us:
+        return Icons.message_outlined;
+      case MenuItems.notifications:
+        return Icons.notifications;
     }
   }
 }
@@ -97,6 +107,25 @@ class MenuController extends GetxController with GetSingleTickerProviderStateMix
     setCollapsed(!isCollapsed);
 
     Future.delayed(const Duration(milliseconds: 100), () async {
+      if (item == MenuItems.settings) {
+        await _goToSettings();
+      } else {
+        await _goToContactUs();
+      }
+    });
+  }
+
+    Future<dynamic> _goToContactUs() async {
+      await Get.to(
+          ContactUsPage(),
+          transition: Transition.rightToLeft,
+          binding: BindingsBuilder.put(() {
+            return ContactUsController();
+          })
+      );
+    }
+
+    Future<dynamic> _goToSettings() async {
       await Get.to(
           SettingsPage(),
           transition: Transition.rightToLeft,
@@ -104,6 +133,15 @@ class MenuController extends GetxController with GetSingleTickerProviderStateMix
             return SettingsController();
           })
       );
-    });
+    }
+
+  Future<dynamic> _goToNotifications() async {
+    await Get.to(
+        SettingsPage(),
+        transition: Transition.rightToLeft,
+        binding: BindingsBuilder.put(() {
+          return SettingsController();
+        })
+    );
   }
 }

@@ -28,7 +28,7 @@ class BigText extends StatelessWidget {
       textAlign: textAlign,
       maxLines: lineCount ?? 1,
       softWrap: false,
-      textDirection: TextDirection.rtl,
+      //textDirection: TextDirection.rtl,
       style: TextStyle(fontFamily: 'Roboto',
         color: color,
         fontSize: size == 0 ? 24 : size,
