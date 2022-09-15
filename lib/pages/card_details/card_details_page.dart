@@ -21,7 +21,6 @@ class CardDetailsPage extends GetView<CardDetailsController> {
         showAccountIcon: false,
         rightItem: Row(
           children: [
-            _calendarWidget(),
             _searchWidget()
           ],
         ),
@@ -147,17 +146,6 @@ class CardDetailsPage extends GetView<CardDetailsController> {
           icon: const Icon(Icons.search),
           onPressed: () {
             controller.openSearch();
-          },
-        )
-    );
-  }
-
-  Widget _calendarWidget(){
-    return  Container(
-        child: IconButton(
-          icon: const Icon(Icons.calendar_month),
-          onPressed: () {
-           //
           },
         )
     );
